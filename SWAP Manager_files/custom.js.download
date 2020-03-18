@@ -1,0 +1,29 @@
+$(document).ready(function(){
+	$('.data-table').DataTable({
+	    responsive: true,
+	    autoWidth: false,
+        initComplete:   function () {
+                            $('.loading-message').addClass("d-none");
+                            $('.data-table').removeClass("d-none");
+
+                        }
+	});
+
+    
+	$('.data-table-list').DataTable({
+	    responsive: true,
+	    autoWidth: false,
+	    columnDefs: [
+            {
+                targets: [ 0 ],
+                visible: false,
+                searchable: false
+            },
+            {
+                targets: [ 2 ],
+                visible: false,
+                searchable: false
+            }
+        ]
+	});
+});

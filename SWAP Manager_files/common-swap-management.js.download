@@ -1,0 +1,505 @@
+    function xTrim(x) {
+        return x.replace(/^\s+|\s+$/gm,'');
+    }
+
+    function changeCurrencySymbol(currencyId) {
+        currencyId = xTrim(currencyId);
+
+        var s = ' ';
+        if (currencyId == '1') s = 'USD';
+        else if (currencyId == '2') s = 'EUR';
+
+        currencyLabel = s;
+        
+        for (var i = 0; i < arCurrencyFields.length; i++) {
+            document.getElementById('curlbl-' + arCurrencyFields[i]).innerHTML = s;
+        }
+    }
+
+
+    function verifyHeaderDateRange() {
+        hStartDate = document.getElementById('dtStart').value;
+        hEndDate = document.getElementById('dtEnd').value;
+        if (hStartDate == '' || hEndDate == '' || hEndDate < hStartDate) {
+            showErrorBalloon('You have to set a valid date range in SWAP Header before add rows to INBOUND/OUTBOUND details.')
+            return false;
+        }
+        return true;
+    }
+
+    function showIOBalloon(ioBound) {
+        if (!verifyHeaderDateRange()) return;
+        hStartDate = document.getElementById('dtStart').value;
+        hEndDate = document.getElementById('dtEnd').value;
+
+
+        shDIV('mdark', 1);
+        shDIV('ioBalloon', 1);
+        url = 'new-swap-addIO.php?io=' + ioBound + '&trRef=';
+
+        url += '&hStartDate=' + hStartDate;
+        url += '&hEndDate=' + hEndDate;
+
+        document.getElementById('ioBalloon').innerHTML
+            = '<iframe '
+            + ' style="width:100%; height:100%; border:0px;"'
+            + ' src="' + CMLNK + url + '">'
+            + '</iframe>';
+    }
+
+    function showModal(ioBound) {
+        if (!verifyHeaderDateRange()) return;
+        hStartDate = document.getElementById('dtStart').value;
+        hEndDate = document.getElementById('dtEnd').value;
+
+
+        url = 'new-swap-addIO.php?io=' + ioBound + '&trRef=';
+
+        url += '&hStartDate=' + hStartDate;
+        url += '&hEndDate=' + hEndDate;
+
+        document.getElementById('modal-iframe').innerHTML = '';
+        $('#modal').on('shown.bs.modal', function() {
+            $(this).find('iframe#add-iframe').attr('src', CMLNK + url )
+            var divModal = document.getElementById('modal-iframe');
+            divModal.innerHTML = '<iframe '
+                                // + ' style="width:100%; height:700px; border:0px;"'
+                                + ' style="width:100%; height:450px; border:0px;"'
+                                + ' src="' + CMLNK + url + '">'
+                                + '</iframe>';
+        })
+
+        $('#modal').modal('show');
+    }
+
+    window.closeModal = function(){
+        $('#modal').modal('hide');
+    };
+
+    function showIOBalloonEdit(gparam, parent) {
+
+        if (!verifyHeaderDateRange()) return;
+        hStartDate = document.getElementById('dtStart').value;
+        hEndDate = document.getElementById('dtEnd').value;
+
+        shDIV('mdark', 1);
+        shDIV('ioBalloon', 1);
+        url = 'new-swap-addIO.php?' + gparam;
+        url += '&hStartDate=' + hStartDate;
+        url += '&hEndDate=' + hEndDate;
+        url += '&parentPage=' + parent;
+
+        document.getElementById('ioBalloon').innerHTML
+            = '<iframe '
+            + ' style="width:100%; height:100%; border:0px;"'
+            + ' src="' + CMLNK + url + '">'
+            + '</iframe>';
+    }
+
+    function getJSTRIOBoundOpts(id) {
+        var r = '';
+        var xonclick = "";
+        var io = 'INBOUND';
+        if (id.indexOf('ibtr_') == -1) io = 'OUTBOUND';
+        xonclick = "editTR('" + io + "', '" + id + "');";
+        r += '<button class="btn btn-primary btn-sm" type="button" title="Edit" onclick="' + xonclick + '">'
+            + '<i class="fa fa-pencil" aria-hidden="true"></i>'
+            + '</button>';
+
+        if (flagTRKiller) {
+            r += '&nbsp;';
+            xonclick = "removeTR('" + id + "');";
+            r += '<button class="btn btn-primary btn-sm" type="button" title="Delete" onclick="' + xonclick + '">'
+                + '<i class="fa fa-trash" aria-hidden="true"></i>'
+                + '</button>';
+        }
+        return r;
+    }
+
+    function tryRemoveTR(id) {
+        xhtml = '';
+
+
+        xheaders = '';
+        xrows = '<tr>';
+        tr = document.getElementById(id);
+        thRow ='';
+
+        tds = tr.getElementsByTagName('td');
+        for (var i = 1; i < tds.length; i++) {
+            if (i != 2) {
+                xheaders += '<th>' + document.getElementById('tINBOUND').rows[0].getElementsByTagName('th')[i].innerHTML; + '</th>';
+                xrows += '<td'
+                                + ' title="' + tds[i].title + '"'
+                            + '>' + tds[i].innerHTML + '</td>';
+            }
+        }
+        xrows += '</tr>';
+
+        xhtml += '<table>'
+                    + '<thead><tr>'
+                        + xheaders
+                    + '</tr></thead>'
+                    + '<tbody>'
+                        + xrows
+                    + '</tbody>'
+                + '</table>';
+
+        xhtml = '<p>Do you want to remove this row?</p>'
+                + '<div style="width:95% height:30px; display:block; overflow:auto;">'
+                    + xhtml
+                + '</div>';
+        xhtml += '<hr/>';
+        xhtml += '<button class="btn btn-primary btn-sm" type="button" onclick="removeTR(\'' + id + '\'); hideWaitBalloonMedium();">Yes</button>';
+        xhtml +=   ('&nbsp;').repeat(3);
+        xhtml += '<button class="btn btn-danger btn-sm" type="button" onclick="hideWaitBalloonMedium();">No</button>';
+
+        showWaitBalloonMedium(xhtml);
+    }
+
+    function removeTR(id) {
+        killedTRRef = id;
+        document.getElementById(id).remove();
+        recalcFull();
+    }
+
+    function addTR(oid, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12) {
+        var tableRef = document.getElementById(oid).getElementsByTagName('tbody')[0];
+        var newRow   = tableRef.insertRow();
+
+        if (flagTRKiller) {
+            if (oid == 'tINBOUND') {
+                inboundNTR++;
+                newRow.id = 'ibtr_' + inboundNTR;
+            } else {
+                outboundNTR++;
+                newRow.id = 'obtr_' + outboundNTR;
+            }
+        }
+        else newRow.id = killedTRRef;
+
+        newRow.name = newRow.id;
+
+        // newRow.classList.add('d-flex');
+
+
+        v3 = formatToMMDDYYYY(v3);
+        v4 = formatToMMDDYYYY(v4);
+        v5 = numberCurrency(v5, 5);
+        v6 = numberWithCommas(v6);
+        v7 = numberCurrency(v7, 2);
+        v8 = numberWithCommas(v8);
+        v9 = numberCurrency(v9, 5);
+        v10 = numberCurrency(v10, 2);
+        v11 = numberPercent(v11, 2);
+        v12 = numberCurrency(v12, 2);
+
+        // alert('newRow.id = ' + newRow.id + '::' + newRow.name + '..');
+        newRow.insertCell(0); newRow.cells[0].innerHTML  = getJSTRIOBoundOpts(newRow.id);
+        newRow.insertCell(1); newRow.cells[1].innerHTML  = v0;
+        newRow.insertCell(2); newRow.cells[2].innerHTML  = v1;
+        newRow.insertCell(3); newRow.cells[3].innerHTML  = v2;
+        newRow.insertCell(4); newRow.cells[4].innerHTML  = v5;
+        newRow.insertCell(5); newRow.cells[5].innerHTML  = v6;
+        newRow.insertCell(6); newRow.cells[6].innerHTML  = v7;
+        newRow.insertCell(7); newRow.cells[7].innerHTML  = v8;
+        newRow.insertCell(8); newRow.cells[8].innerHTML  = v9;
+        newRow.insertCell(9); newRow.cells[9].innerHTML  = v10;
+        newRow.insertCell(10); newRow.cells[10].innerHTML  = v11;
+        newRow.insertCell(11); newRow.cells[11].innerHTML  = v12;
+        newRow.insertCell(12); newRow.cells[12].innerHTML  = v3;
+        newRow.insertCell(13); newRow.cells[13].innerHTML  = v4;
+
+
+
+
+
+
+        /*
+        parent.addTR(   oid,               parentName,      childId, // oid, 0, 1
+                        childName,         startDate,       endDate, // 2, 3, 4
+                        rate,              dealMinutes,     revenue, // 5, 6, 7
+                        dailyMinExpected,  costPerMinute,   margin,  // 8, 9, 10
+                        marginPercent,     marginPerMinute           // 11, 12
+                    );
+         */
+
+        /*
+        newRow.cells[0].classList.add('col-' + '1');
+        for(var i = 1; i < newRow.cells.length; i++)
+            newRow.cells[i].classList.add('col-' + arIOBColWidth[i - 1]);
+        */
+
+        newRow.cells[2].style.display = "none";
+
+
+        var xr = newRow.cells[3].innerHTML.trim();
+        if (xr.length > childTDLimitLength) {
+            var title = xr;
+            // newRow.cells[3].title = '* ' + title.replace(";", "\r\n" + "* ");
+            newRow.cells[3].title = '* ' + title.replace(/;/gi, "\r\n" + '*');
+            newRow.cells[3].innerHTML = xr.substring(0, childTDLimitLength - 4) + ' [...]';
+        }
+
+        return newRow.id;
+    }
+
+    function closeIOBalloon() {
+        shDIV('ioBalloon', 0);
+        shDIV('mdark', 0);
+    }
+
+    function closeErrorBalloon() {
+        shDIV('errorBalloon', 0);
+        shDIV('errorDark', 0);
+    }
+
+    function showErrorBalloon(errorMessage) {
+        str1 = '<div class="modal-header">'
+        str1+='<span id="errorTitle" class ="errorT errorT1"><strong>Error</strong></span>'
+        str1+='<span id="closeError" class ="errorT errorT2" onclick="closeErrorBalloon();">X</span>'
+        str1+='</div>';
+        //modal-body
+        str1+= '<div class="modal-body">'+errorMessage+'</div>';
+        document.getElementById('errorBalloon').innerHTML = str1 ;
+        shDIV('errorDark', 1);
+        shDIV('errorBalloon', 1);
+
+    }
+
+    function closeSSCBalloon() {
+        shDIV('sscBalloon', 0);
+        shDIV('sscDark', 0);
+    }
+
+    function showSSCBalloon(newState) {
+
+        shDIV('sscDark', 1);
+        shDIV('sscBalloon', 1);
+
+        url = 'swap-change-state.php?'
+            + 'swapID=' + swapID
+            + '&revisionNumber=' + revisionNumber
+            + '&newState=' + newState
+        ;
+
+        document.getElementById('sscBalloon').innerHTML
+            = '<iframe '
+            + ' style="width:100%; height:100%; border:0px;"'
+            + ' src="' + CMLNK + url + '">'
+            + '</iframe>';
+    }
+
+    function showSSCModal(newState) {
+        url = 'swap-change-state.php?'
+            + 'swapID=' + swapID
+            + '&revisionNumber=' + revisionNumber
+            + '&newState=' + newState
+        ;
+
+        document.getElementById('modal-iframe').innerHTML = '';
+
+        $('#modal').on('shown.bs.modal', function() {
+            $(this).find('iframe#add-iframe').attr('src', CMLNK + url )
+            document.getElementById('modal-iframe').innerHTML
+            = '<iframe '
+            // + ' style="width:100%; height:700px; border:0px;"'
+            + ' style="width:100%; height:450px; border:0px;"'
+            + ' src="' + CMLNK + url + '">'
+            + '</iframe>';
+        })
+
+        $('#modal').modal('show');
+    }
+
+    function showWaitBalloon(htmlToShow) {
+        if (document.getElementById('waitBalloon')) {
+            document.getElementById('waitBalloon').innerHTML = htmlToShow;
+            shDIV('wdark', 1);
+            shDIV('waitBalloon', 1);
+        }
+    }
+
+    function showWaitBalloonMedium(htmlToShow) {
+        document.getElementById('waitBalloonMedium').innerHTML = htmlToShow;
+        shDIV('wdark', 1);
+        shDIV('waitBalloonMedium', 1);
+    }
+
+    function hideWaitBalloon() {
+        shDIV('waitBalloon', 0);
+        shDIV('wdark', 0);
+    }
+
+    function hideWaitBalloonMedium() {
+        shDIV('waitBalloonMedium', 0);
+        shDIV('wdark', 0);
+    }
+
+    function reloadSelectPicker() {
+        $('.selectpicker').selectpicker();
+    }
+
+    function getDays(fromId, toId){
+        var from = document.getElementById(fromId).value;
+        var to = document.getElementById(toId).value;
+
+        if (from == '' || to == '') return '0';
+
+        from = new Date(document.getElementById(fromId).value);
+        to = new Date(document.getElementById(toId).value);
+
+        return (parseInt((to - from) / (24 * 3600 * 1000)) + 1) + '';
+    }
+
+    function calcDealLength() {
+        document.getElementById('dealLength').value = getDays('dtStart', 'dtEnd');
+    }
+
+    function getElementsList(xid) {
+        var f = document.getElementById(xid);
+        xr = "";
+        for (var i = 0; i < f.elements.length; i++)
+            xr += f.elements[i].id + "\r\n";
+        alert(xr);
+    }
+
+    function setElementValue(id, value) {
+        document.getElementById(id).value = value;
+    }
+
+    function getElementValue(id) {
+        var x = document.getElementById(id).value;
+        return x.trim();
+    }
+
+    function getNSelectedTrunks() {
+        var r = 0;
+        var opt;
+        var sel = document.getElementById('trunks[]');
+        for ( var i = 0, len = sel.options.length; i < len; i++ ) {
+            opt = sel.options[i];
+            if ( opt.selected === true ) r++;
+        }
+        return r;
+    }
+
+    function swapNameRegExp(value) {
+        const pattern = new RegExp('^[(+)+]|[A-Z0-9- ]+$', 'i');
+        return (pattern.test(value));
+    }
+
+    function previousValidation() {
+        var errorMessage = '';
+
+        if (getElementValue('originalDealMargin') == '') setElementValue('originalDealMargin', 0.00);
+
+        if (getElementValue('carrierId') == '') errorMessage = 'Carrier value required';
+        else if (getElementValue('swapName') == '') errorMessage = 'Swap Name value required';
+        else if (!swapNameRegExp(getElementValue('swapName'))) errorMessage = 'Swap Name with invalid value. <br/>Valid characters: [A-Z,0-9,- ]';
+        else if (getNSelectedTrunks() == 0) errorMessage = 'Trunk value required';
+        else if (getElementValue('currencyId') == '') errorMessage = 'Currency value required';
+        else if (getElementValue('dtStart') == '') errorMessage = 'Start Date value required';
+        else if (getElementValue('dtEnd') == '') errorMessage = 'End Date value required';
+        else if (getElementValue('dtStart') > getElementValue('dtEnd')) errorMessage = 'Invalid range between Start and End dates';
+
+        else if (getElementValue('originalDealMargin') == '') errorMessage = 'Original Deal Margin value required';
+        else if (isNaN(getElementValue('originalDealMargin'))) errorMessage = 'Original Deal Margin with invalid value';
+
+        else if (getElementValue('exchangeRate') == '') errorMessage = 'Exchange Rate value required';
+        else if (isNaN(getElementValue('exchangeRate'))) errorMessage = 'Exchange Rate with invalid value';
+        else if (parseFloat(getElementValue('exchangeRate')) < 0) errorMessage = 'Exchange Rate with invalid value [2]';
+        else if (getElementValue('swapTypeId') == '6'
+            && hasDifferentChilds())
+            // && document.getElementById('tINBOUND').getElementsByTagName('tbody')[0].getElementsByTagName('tr').length > 1)
+            errorMessage = 'MARKET SWAP type only can have the same child';
+
+// alert(getElementValue('swapName'));
+
+
+
+        // if (errorMessage == '') errorMessage = 'Something...';
+        if (errorMessage != '') {
+            errorMessage = '<div style="padding-top:40px; text-align:center!important">'
+                                + '<h2>Problem detected</h2>'
+                                + '<div>' + errorMessage + '</div>'
+                                + '<div style="margin-top:10px; padding-top:5px; padding-bottom:5px; cursor:pointer; background-color:#007bff; color:#FFF;" onclick="closeErrorBalloon();">Continue</div>'
+                            + '</div>';
+            showErrorBalloon(errorMessage);
+            return false;
+        }
+        return true;
+    }
+
+    function hasDifferentChilds(){
+        var childs = document
+                    .getElementById('tINBOUND')
+                    .getElementsByTagName('tbody')[0]
+                    .getElementsByTagName('tr');
+        var childsCount = childs.length;
+
+        var isDifferent = false;
+        for (var i = childsCount - 1; i >= 0; i--) {
+            if(i > 0){
+                var currentList = childs[i].getElementsByTagName('td')[2].innerHTML.split(';');
+                var nextList = childs[i- 1 ].getElementsByTagName('td')[2].innerHTML.split(';');
+
+                // Sort and compare json string
+                if(JSON.stringify(currentList.sort())!=JSON.stringify(nextList.sort())){
+                    isDifferent = true;
+                    break;
+                }
+            }
+        }
+        return isDifferent;
+
+    }
+
+    function tryToSaveSWAP(swapID, gAction) {
+        if (!previousValidation()) return;
+
+        var json = generateJSON(swapID);
+        json = json.replace("\"SwapID\":0,", "");
+
+        url = CMLNK + 'ghost.php'
+            + '?action=10'
+            + '&' + 'gAction=' + gAction
+            + '&' + 'value=' + encodeURI(json) ;
+
+        $('#iframeGhost').attr('src', url);
+
+    }
+
+    function tryToCopySWAP(swapID, gAction) {
+
+        var json;
+        if (gAction == "VIEW")
+            json = JSON.stringify({
+                'SwapID' : swapID,
+                'RevisionNumber':revisionNumber
+            });
+            //json = generateJSON(swapID).replace("\"SwapID\":0,", "");
+        else {
+            if (!previousValidation()) return;
+            json = generateJSON(swapID).replace("\"SwapID\":0,", "");
+        }
+
+        url = CMLNK + 'ghost.php'
+            + '?action=30'
+            + '&' + 'gAction=' + gAction
+            + '&' + 'value=' + encodeURI(json) ;
+
+        $('#iframeGhost').attr('src', url);
+
+    }
+
+    function showMessage(message, goTo) {
+        alert(message);
+        if (goTo != '') window.location.replace(goTo);
+    }
+
+    $(document).ready(function(){
+        $('#carrierId').change(function(){
+            $("#swapName").attr("disabled", "disabled");
+        });
+    });

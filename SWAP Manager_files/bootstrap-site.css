@@ -1,0 +1,25 @@
+    .table-hover > tbody > tr:hover { background-color: #1C6093; color:#FFF; }
+    .table-hover > tbody > tr:hover a { color:#FFF; text-decoration:none; }
+    .table-hover > tbody > tr a { color:#000; text-decoration:none; }
+    .pageTitleTable { width:100%;}
+    .pageTitleTable h1 { padding-top:0; margin-top:0px; }
+    .pageTitleTable h1 { font-size:1.4em; }
+    .pageTitleTable h2 { font-size:1.2em; }
+    .pageTitleTable a { color:#007BFF; } /* BBB */
+    .pageTitleTable a:hover { color:#1C6093; } /* D13139 */
+
+    .form-signin {width: 100%; max-width: 330px; padding: 15px; margin: 0 auto; }
+    .table td a { width:100%; height:100%; display:block; }
+
+
+
+    h1 { color:#145390; }
+    h2 { font-size:1.2em; color:#900;}
+    h3 { color:#900; padding-top:10px; padding-bottom:10px;} /* E32B43 */
+
+    .requiredAsterik { color:#900; font-weight: bold; }
+    .requiredAsterikLabel { color:#900; padding-top:10px;}
+    .h1Container { background-color:#EAEAEA; padding-top:5px; padding-bottom:5px; }
+
+    .btn-span-site { color:#007bff; }
+    /* table thead tr { background-color:#00d3ee!important; } */

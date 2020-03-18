@@ -1,0 +1,101 @@
+#tINBOUND .fa {
+    font-size: 11px !important;
+}
+#tOUTBOUND .fa {
+    font-size: 11px !important;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    padding: .25rem .5rem!important;    
+    display: inline-block;
+}
+.table td, .table th {
+    padding: 0.2rem!important;
+    min-width: 70px!important;
+    font-size:11px;
+    max-width: 110px;
+    word-wrap: break-word;
+}
+
+#fid .form-control{
+    font-size: 11px!important;
+}
+
+.bootstrap-select .dropdown-menu li {
+    font-size: 11px;
+}
+
+.table th {    
+    text-align: left;
+}
+#idSearchField {
+
+    display: inline;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: 14px;
+    line-height: 21px;
+
+}
+#fChild-btn,#fParent-btn {
+
+    font-size: 18px;
+    padding: 0px;
+
+}
+
+#fid .form-control{
+    padding:2px;
+}
+
+#h1Modal {
+
+    font-size: 15px !important;
+
+}
+#ulUnselected, #ulSelected{
+    font-size:11px;
+    min-height: 140px!important;
+    max-height: 140px!important;
+}
+#ulUnselected li, #ulSelected li{
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
+}
+#modal-iframe .input-group input{
+    padding-top:0px;
+    padding-bottom: 0px;
+    font-size: 11px;
+
+}
+#modal-iframe #fIO_Rate{
+    paading:2px;
+}
+
+#tTotals td, #tTotals th{
+    border: 1px solid transparent;  
+}
+
+#fid label{
+    font-size: 11px;
+}
+
+#form1,#form2,#form1 input, #form2 input,#form1 select,#form2 select, .filter-option-inner-inner{
+    font-size: 11px;
+}
+
+#form2 .row{
+    padding-bottom: 31px!important;
+}
+
+
+#tblRev{
+    width:100%!important;
+    overflow-x:hidden!important;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+    margin-right: 1%;
+}

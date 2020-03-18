@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<!-- saved from url=(0113)http://10.104.0.112:8088/demo-swap-manager/swap.php?rowid=1469&revisionNumber=8&action=VIEW&PARENT=Active%20Swaps -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SWAP Manager</title>
+    <link
+      rel="shortcut icon"
+      type="image/ico"
+      href="http://10.104.0.112:8088/demo-swap-manager/images/site/icon.gif"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/bootstrap.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/bootstrap-select.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/bootstrap-site.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/font-awesome.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/font-awesome-site.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/style.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/extra.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="./SWAP Manager_files/jquery.dataTables.min.css"
+      type="text/css"
+    />
+    <script src="./SWAP Manager_files/shdivs.js.download"></script>
+    <script src="./SWAP Manager_files/xpcid_reloader.js.download"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <table width="100%" border="0">
+        <tbody>
+          <tr>
+            <td style="width:370px!important;">
+              <div class="main_logo">
+                <a
+                  href="http://10.104.0.112:8088/demo-swap-manager/main.php"
+                  class="fullmosh"
+                ></a>
+              </div>
+            </td>
+            <td>
+              <table class="masterMenuTable" align="right">
+                <tbody>
+                  <tr>
+                    <td>
+                      <a onclick="tryToCopySWAP(1469,&#39;VIEW&#39;)"
+                        ><i class="fa fa-clone" aria-hidden="true"></i>
+                        <div>Copy SWAP</div></a
+                      >
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                      <a onclick="showSSCModal(999);"
+                        ><i class="fa fa-close" aria-hidden="true"></i>
+                        <div>Close SWAP</div></a
+                      >
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                      <a onclick="showSSCModal(977);"
+                        ><i class="fa fa-comment" aria-hidden="true"></i>
+                        <div>Log</div></a
+                      >
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                      <a
+                        href="http://10.104.0.112:8088/demo-swap-manager/swaps.php"
+                        ><i
+                          class="fa fa-arrow-circle-left"
+                          aria-hidden="true"
+                        ></i>
+                        <div>Back</div></a
+                      >
+                    </td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="clear:both;"></div>
+      <hr />
+      <div class="row h1Container">
+        <h1>View SWAP <small>[Active Swaps]</small></h1>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-6">
+          <h2 style="width:95%; margin:0px auto;">Partner Information</h2>
+          <form
+            id="form1"
+            method="post"
+            action="http://10.104.0.112:8088/demo-swap-manager/swap.php?rowid=1469&amp;revisionNumber=8&amp;action=VIEW&amp;PARENT=Active%20Swaps"
+          >
+            <div
+              class="row"
+              style="background-color:#EAEAEA; border:1px solid #AAA; width:95%; margin:0px auto; padding-top:5px; padding-bottom:5px;"
+            >
+              <div
+                id="divc_carrierId"
+                name="divc_carrierId"
+                class="col-md-4 mb-12"
+              >
+                <label for="carrierId"
+                  >Carrier<span class="requiredAsterik"> *</span></label
+                ><select
+                  id="carrierId"
+                  name="carrierId"
+                  class="custom-select d-block w-100"
+                  onchange="$(&#39;#iframeGhost&#39;).attr(&#39;src&#39;, &#39;http://10.104.0.112:8088/demo-swap-manager/ghost.php?action=1&amp;value=&#39; + this.value);"
+                  disabled="true"
+                  ><option value="">[Select option]</option
+                  ><option value="1">013 Netvision Ltd</option
+                  ><option value="17">42com Telecommunications GmBh</option
+                  ><option value="21">9Eons Limited</option
+                  ><option value="27">ACESTAR TELECOMS HONG KONG</option
+                  ><option value="31">Acts Telecom Services Ltd</option
+                  ><option value="32" selected="">ADC s.r.l.</option
+                  ><option value="36">Advoic Communications Pte. Ltd</option
+                  ><option value="41">Aggregato Global Pty Ltd</option
+                  ><option value="46">All Access Telecom Inc.</option
+                  ><option value="47">ALL IP d.o.o.</option
+                  ><option value="52">Altmedia Telecom SRL</option
+                  ><option value="59">AMC TEL SAL (Offshore)</option
+                  ><option value="71">Apelby GmbH</option
+                  ><option value="79">Arma Tel LLC</option
+                  ><option value="86">Asia Access Telecom Pte Ltd</option
+                  ><option value="101"
+                    >Bahrain Telecommunications Company BSC</option
+                  ><option value="106">Belgacom International</option
+                  ><option value="107">BELL CANADA</option
+                  ><option value="109">Beltelecom</option
+                  ><option value="114">Bezeq International</option
+                  ><option value="117">BHARTI AIRTEL LIMITED</option
+                  ><option value="128">Brilliant Telecom Limited</option
+                  ><option value="135">Bungatel Pte. Ltd.</option
+                  ><option value="136"
+                    >BUSINESS TELECOMMUNICATIONS SERVICES</option
+                  ><option value="144">CALLTRADE CARRIER SERVICES AG</option
+                  ><option value="147">Carrier Italia S.R.L.</option
+                  ><option value="1114">CenturyLink Peru S.A. (Premium)</option
+                  ><option value="1115">CenturyLink Peru S.A. (Standard)</option
+                  ><option value="158">CETIN a.s.</option
+                  ><option value="160"
+                    >CHINA MOBILE INTERNATIONAL LIMITED</option
+                  ><option value="161">China Skyline Telecom Co Ltd</option
+                  ><option value="162">China Telecom Global Limited</option
+                  ><option value="165">China Unicom HK Operations</option
+                  ><option value="166">CHLN Limited</option
+                  ><option value="167">Choice One</option
+                  ><option value="170"
+                    >Chunghwa Telecom Singapore Pte Ltd</option
+                  ><option value="174">Circle Worldlink Limited</option
+                  ><option value="190">CommPeak Limited</option
+                  ><option value="192">COMNET (USA) LLC</option
+                  ><option value="194">COMPUTERTEL INC</option
+                  ><option value="205">Core Communication Services Ltd</option
+                  ><option value="207">Core3 Networks Pvt Ltd</option
+                  ><option value="209">Cronos Group Ltd</option
+                  ><option value="214">Czechnode s.r.o.</option
+                  ><option value="220">Dawn Global Services Limited</option
+                  ><option value="230">Dial Telecommunication Limited</option
+                  ><option value="232">Dialog Axiata PLC</option
+                  ><option value="234">DIGICEL GROUP A</option
+                  ><option value="239">DOLLAR PHONE</option
+                  ><option value="245">EAD TELECOM</option
+                  ><option value="246">EARTHLINK CARRIER</option
+                  ><option value="262">EMPRESA HONDURENA DE TELECOM</option
+                  ><option value="265">Envara Limited</option
+                  ><option value="266">Equant LLC</option
+                  ><option value="268">ERIS PREMIUM</option
+                  ><option value="269">ERIS Standard</option
+                  ><option value="278">Euroweb Romania SA</option
+                  ><option value="282">EVOX TRADING SARL</option
+                  ><option value="283">EXATEL S.A.</option
+                  ><option value="285">EXCEL FGD</option
+                  ><option value="287">Exot Limited</option
+                  ><option value="309">G2T - ADC</option
+                  ><option value="314">G2T - America Movil Peru</option
+                  ><option value="1120">G2T - America Movil Peru (2)</option
+                  ><option value="316">G2T - Baqcol S.A.S.</option
+                  ><option value="318">G2T - BICS</option
+                  ><option value="327">G2T - Calltrade</option
+                  ><option value="330">G2T - Cellvoz</option
+                  ><option value="331">G2T - Cima Telecom</option
+                  ><option value="332"
+                    >G2T - Claro Enterprise Solutions LLC</option
+                  ><option value="333">G2T - CNT</option
+                  ><option value="340">G2T - Entel Chile</option
+                  ><option value="1132">G2T - First Sunrise Group Inc.</option
+                  ><option value="344">G2T - France Telecom Espana S.A.</option
+                  ><option value="349">G2T - Huys Telecom</option
+                  ><option value="350">G2T - Ibasis</option
+                  ><option value="352">G2T - IDT</option
+                  ><option value="353">G2T - IDT (Special)</option
+                  ><option value="355">G2T - INFRACEL</option
+                  ><option value="359">G2T - IVY Telecom</option
+                  ><option value="365">G2T - Latinatel</option
+                  ><option value="367">G2T - Level 3 Argentina</option
+                  ><option value="372">G2T - Matchcom</option
+                  ><option value="1122">G2T - Matchcom (Offset Euro)</option
+                  ><option value="1121">G2T - Matchcom (Offset USD)</option
+                  ><option value="377">G2T - NetworkIP</option
+                  ><option value="378">G2T - NGN</option
+                  ><option value="381">G2T - PLD LLC</option
+                  ><option value="389">G2T - Shayona Global</option
+                  ><option value="390">G2T - Sistemas Satelitales</option
+                  ><option value="391">G2T - Skype</option
+                  ><option value="392">G2T - SMS Consortium</option
+                  ><option value="393"
+                    >G2T - Speedflow Communications LTD</option
+                  ><option value="394">G2T - Tata Communications</option
+                  ><option value="397"
+                    >G2T - Telefonica Celular de Bolivia S.A. (Telecel)</option
+                  ><option value="398">G2T - Telenor</option
+                  ><option value="399">G2T - Tellza Inc</option
+                  ><option value="400">G2T - TISNA</option
+                  ><option value="402">G2T - TIWS II</option
+                  ><option value="405">G2T - Veritas Prepaid</option
+                  ><option value="406">G2T - Verizon Business USA</option
+                  ><option value="417">G2T - Xtra Telecom SAU</option
+                  ><option value="426">Globacom Limited</option
+                  ><option value="435"
+                    >Global Teknoloji Telekomunikasyon A.S.</option
+                  ><option value="440">GLOBE TELESERVICES LIMITED</option
+                  ><option value="442">Globtel GmbH</option
+                  ><option value="444"
+                    >Glory Technology (H.K.) Group Limited</option
+                  ><option value="445">GM TELECOM CORP</option
+                  ><option value="446">GM TELECOM CORP.</option
+                  ><option value="452">GOLEM.COM SRL</option
+                  ><option value="461">Hayo Telecom Inc.</option
+                  ><option value="470">Hutchinson</option
+                  ><option value="471">Hybrid Networks Pte Ltd</option
+                  ><option value="476">IBASIS UK</option
+                  ><option value="479">ICS LLC</option
+                  ><option value="483">IDENTIDAD TELECOM</option
+                  ><option value="484">IDT</option
+                  ><option value="500">Info-Telecom SH.p.k</option
+                  ><option value="503">Innovative Telecom Corp</option
+                  ><option value="510">Interconnect</option
+                  ><option value="518">IPBTEL LLC</option
+                  ><option value="522">IPvoIP s.r.o.</option
+                  ><option value="530">IVY TELECOM SA</option
+                  ><option value="539">JIGSAW SOLUTIONS INC</option
+                  ><option value="540">Jindawan Limited</option
+                  ><option value="545">Junctionz Ltd</option
+                  ><option value="1128">KMASSOP LTD</option
+                  ><option value="561">KT CORPORATION (KOREA TELECOM)</option
+                  ><option value="562">LANCK TELECOM LIMITED</option
+                  ><option value="571">Lebara Limited</option
+                  ><option value="573">LEVEL 3 COMMUNCATIONS ,LLC</option
+                  ><option value="575">LEXIC0 CONSULTING L.C</option
+                  ><option value="1130">Lexico (DCT Customer)</option
+                  ><option value="581">Link Technology Company Limited</option
+                  ><option value="583">LOCUS (KGL)</option
+                  ><option value="586">Look International Inc</option
+                  ><option value="610">MEA Systems Ltd</option
+                  ><option value="612">Mediafon Carrier Services UAB</option
+                  ><option value="615">Mediatel Ltd</option
+                  ><option value="625">MMD SMART LTD</option
+                  ><option value="626">Mobifone Global Europe S.R.O.</option
+                  ><option value="639">Munchen Teledienst UG Munitel UG</option
+                  ><option value="653">Netpartner Polska Sp. z.o.o.</option
+                  ><option value="664">NGN Corp SAL</option
+                  ><option value="666">NHN Co. Ltd</option
+                  ><option value="667">NOBEL Customer (Supplier)</option
+                  ><option value="669">Nooh Media SRL</option
+                  ><option value="670">Nord Connect Ltd</option
+                  ><option value="671">Nordline Communications LP</option
+                  ><option value="686">O1 COMM INC</option
+                  ><option value="693"
+                    >OJSC Multiregional Transit Telecom</option
+                  ><option value="694">OJSC Rostelecom</option
+                  ><option value="1119">Oldwell International Limited</option
+                  ><option value="1125"
+                    >Oldwell International Limited (4)</option
+                  ><option value="1124"
+                    >Oldwell International Limited (Special)</option
+                  ><option value="1123"
+                    >Oldwell International Limited (Standard)</option
+                  ><option value="698">Omantel</option
+                  ><option value="708">Orange</option
+                  ><option value="710">Orange Espagne, S.A.U.</option
+                  ><option value="712">Orange Polska</option
+                  ><option value="716">Oscatel Limited</option
+                  ><option value="1118">Oscatel Limited (Veritas)</option
+                  ><option value="717">Oscatel Limited 2</option
+                  ><option value="723"
+                    >Pakistan Telecommunication Company Limite</option
+                  ><option value="728">PCCW GLOBAL LIMITED</option
+                  ><option value="730">Peerless Network Inc</option
+                  ><option value="737">Piper Mobile UK Ltd (2)</option
+                  ><option value="739"
+                    >Platinum Services Telecommunication Ltd</option
+                  ><option value="1112">PLDT (SG) PTE LTD</option
+                  ><option value="751">Primus Management ULC</option
+                  ><option value="752">PRIMUS TELCOMMUNICATIONS PTY LTD</option
+                  ><option value="756">Pro Ltd</option
+                  ><option value="761">PROTEL</option
+                  ><option value="1131">PTGi-ICS - BLOCK</option
+                  ><option value="767">QATAMA COMMUNICATIONS</option
+                  ><option value="768">QBR Rapid Pay</option
+                  ><option value="773"
+                    >Quantum Global Communications, Inc</option
+                  ><option value="774">QUICKCOM DIRECT</option
+                  ><option value="775">QUICKCOM GLOBAL</option
+                  ><option value="778">QXTel Limited</option
+                  ><option value="808">RSCOM LTD</option
+                  ><option value="818">SAMA SAL OFFSHORE (MUREX)</option
+                  ><option value="820">SARL @Fer Conseil</option
+                  ><option value="823">Saudi Telecommunication Company</option
+                  ><option value="824">Scaffnet Pte Ltd</option
+                  ><option value="825">Schrego Communications Ltd</option
+                  ><option value="829">SFR</option
+                  ><option value="840">Sify Technologies Limited</option
+                  ><option value="841"
+                    >SIGMA ISLETIM VE ULASTIRMA SAN.TIC.LTD. </option
+                  ><option value="843">SINGAPORE TELECOMMUNICATIONS</option
+                  ><option value="845">Sipstatus Communications SRL</option
+                  ><option value="853">Skylinks Telecom SAL (Offshore)</option
+                  ><option value="860">Smartbiz Telecom LLC</option
+                  ><option value="862">SmartNet Global Limited</option
+                  ><option value="865">SMT TELECOM</option
+                  ><option value="868">SolidTelecoms LLC</option
+                  ><option value="889">SwissLink Carrier AG</option
+                  ><option value="1116">Switchover AG</option
+                  ><option value="1108">TATA Communications</option
+                  ><option value="1107">Tata Communications America Inc.</option
+                  ><option value="910">Telco 214 Inc</option
+                  ><option value="913">TELECALL TELECOMMUNICATIONS</option
+                  ><option value="917">TELECOM ITALIA SPARKLE OF NA</option
+                  ><option value="919">Teleconnect CZ s.r.o</option
+                  ><option value="922">Telefonica de Espana S.A.</option
+                  ><option value="924"
+                    >TELEFONICA INTL WHOLESALE SERVICES,S.L</option
+                  ><option value="926"
+                    >TELEKOM MALAYSIA (HONG KONG) LIMITED</option
+                  ><option value="927"
+                    >Telekom Malaysia Berhad (c/o TMSG)</option
+                  ><option value="1117">Telekom Malaysia Berhad (HQ)</option
+                  ><option value="928"
+                    >Telekom Malaysia Berhad (Standard)</option
+                  ><option value="1129"
+                    >Telekomunikasi Indonesia International (HK) Limited (TELIN)
+                    Standard</option
+                  ><option value="930"
+                    >Telekomunikasi Indonesia International (Hong Kong) Limited
+                    (TELIN)</option
+                  ><option value="932">Telemondo Pte Ltd</option
+                  ><option value="936">TeleXchange System OU</option
+                  ><option value="937">Telia Lietuva AB</option
+                  ><option value="938">TeliaSonera Intl Carrier UK Ltd.</option
+                  ><option value="939">Teliax Inc.</option
+                  ><option value="943">Tellza Communications Inc.</option
+                  ><option value="1109">TELSTRA INTERNATIONAL LIMITED</option
+                  ><option value="949">Telus Communications Inc.</option
+                  ><option value="956">ThinQ Technologies Inc</option
+                  ><option value="959">TITAN INTERNATIONAL WHOLESALE INC</option
+                  ><option value="963">Toptel FZE</option
+                  ><option value="1113">Toptel FZE (TDM)</option
+                  ><option value="975">TSEYVA Pte SINGAPORE</option
+                  ><option value="977">Turk Telecom International AG</option
+                  ><option value="984">UCMS Global Limited</option
+                  ><option value="986">UKRTELECOM</option
+                  ><option value="999">US MATRIX</option
+                  ><option value="1007">Vasudev Global I Limited</option
+                  ><option value="1010">VERIZON UK </option
+                  ><option value="1011">VERSCOM LLC</option
+                  ><option value="1017">Viber Media S.A.R.L</option
+                  ><option value="1018">Viettel Group</option
+                  ><option value="1019">VINCULUM COMMUNICATIONS</option
+                  ><option value="1022">Viva Bahrain B.S.C.</option
+                  ><option value="1034">VODAFONE-PANAFON SA</option
+                  ><option value="1127">Vox Carrier Limited</option
+                  ><option value="1057">VOX CARRIER SRL</option
+                  ><option value="1061">VOYAGE NETWORKS LTD</option
+                  ><option value="1062">Voyzze Communications Inc</option
+                  ><option value="1064">VR Telecom SL</option
+                  ><option value="1070">W &amp; K Investment Limited</option
+                  ><option value="1074">Wavecrest Networks</option
+                  ><option value="1079"
+                    >Wide International Interconnect (WII Telecom) S.A.L
+                    (Offshore)</option
+                  ><option value="1083">Wizard Telecom Company Limited</option
+                  ><option value="1084">WORLD HUB COMMUNICATIONS LIMITED</option
+                  ><option value="1093">XICOMM LLC</option
+                  ><option value="1094">XOTEL SIA</option
+                  ><option value="1095">XTEL SDN BHD</option
+                  ><option value="1099"
+                    >Yaband International Asia Limited</option
+                  ><option value="1101">Yoip Africa FZE</option></select
+                >
+              </div>
+              <div
+                id="divc_accountManagerId"
+                name="divc_accountManagerId"
+                class="col-md-4 mb-12"
+              >
+                <label for="accountManagerId">Account Manager</label
+                ><select
+                  id="accountManagerId"
+                  name="accountManagerId"
+                  class="custom-select d-block w-100"
+                  disabled="true"
+                  ><option value="">[Select option]</option
+                  ><option value="7">Allison Clarke</option
+                  ><option value="8">Andreea Moraru</option
+                  ><option value="14">Cheng Kang Qi</option
+                  ><option value="16">Daniel Melo</option
+                  ><option value="9" selected="">Elena Sokolova</option
+                  ><option value="10">Faisal Hayat</option
+                  ><option value="11">Gianina Pascu</option
+                  ><option value="13">Juan Carlos Abascal</option
+                  ><option value="17">Marina Okouneva</option
+                  ><option value="12">Unassigned</option
+                  ><option value="15">Valentina Varabiev</option></select
+                >
+              </div>
+              <div
+                id="divc_dtSubmitted"
+                name="divc_dtSubmitted"
+                class="col-md-4 mb-12"
+              >
+                <label for="dtSubmitted">Date submitted</label>
+                <div class="input-group">
+                  <input
+                    type="date"
+                    class="form-control text-left"
+                    id="dtSubmitted"
+                    name="dtSubmitted"
+                    disabled=""
+                    value="2020-03-10"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_swapName"
+                name="divc_swapName"
+                class="col-md-4 mb-12"
+              >
+                <label for="swapName">SWAP Name</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="swapName"
+                    name="swapName"
+                    disabled=""
+                    onchange="this.value = this.value.toUpperCase();"
+                    value="ADC"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_regionalLeader"
+                name="divc_regionalLeader"
+                class="col-md-4 mb-12"
+              >
+                <label for="regionalLeader">Regional Leader</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="regionalLeader"
+                    name="regionalLeader"
+                    disabled=""
+                    value=""
+                  />
+                </div>
+              </div>
+              <div id="divc_dtStart" name="divc_dtStart" class="col-md-4 mb-12">
+                <label for="dtStart">Start Date</label>
+                <div class="input-group">
+                  <input
+                    type="date"
+                    class="form-control text-left"
+                    id="dtStart"
+                    name="dtStart"
+                    disabled=""
+                    onchange="recalcFull();"
+                    value="2020-02-01"
+                  />
+                </div>
+              </div>
+              <div id="divc_trunks" name="divc_trunks" class="col-md-4 mb-12">
+                <label for="trunks">Trunks</label
+                ><select
+                  id="trunks"
+                  name="trunks"
+                  class="custom-select d-block w-100"
+                  disabled="true"
+                  ><option value="">[Select option]</option
+                  ><option value="600101" selected="">ADC</option></select
+                >
+              </div>
+              <div
+                id="divc_currencyId"
+                name="divc_currencyId"
+                class="col-md-4 mb-12"
+              >
+                <label for="currencyId">Currency</label
+                ><select
+                  id="currencyId"
+                  name="currencyId"
+                  class="custom-select d-block w-100"
+                  onchange="changeCurrencySymbol(this.value);recalcFull();"
+                  disabled="true"
+                  ><option value="">[Select option]</option
+                  ><option value="2">EURO</option
+                  ><option value="1" selected=""
+                    >UNITED STATES DOLLAR</option
+                  ></select
+                >
+              </div>
+              <div id="divc_dtEnd" name="divc_dtEnd" class="col-md-4 mb-12">
+                <label for="dtEnd">End Date</label>
+                <div class="input-group">
+                  <input
+                    type="date"
+                    class="form-control text-left"
+                    id="dtEnd"
+                    name="dtEnd"
+                    disabled=""
+                    onchange="recalcFull();"
+                    value="2020-03-31"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_swapTypeId"
+                name="divc_swapTypeId"
+                class="col-md-4 mb-12"
+              >
+                <label for="swapTypeId">Swap Type</label
+                ><select
+                  id="swapTypeId"
+                  name="swapTypeId"
+                  class="custom-select d-block w-100"
+                  disabled="true"
+                  ><option value="">[Select option]</option
+                  ><option value="4" selected="">BE</option
+                  ><option value="5">HARD SWAP</option
+                  ><option value="3">JETCR</option
+                  ><option value="6">MARKET SWAP</option
+                  ><option value="2">STC</option
+                  ><option value="1">STRAT</option
+                  ><option value="0">SWAP</option
+                  ><option value="7">Unassigned</option></select
+                >
+              </div>
+              <div
+                id="divc_paymentTerms"
+                name="divc_paymentTerms"
+                class="col-md-4 mb-12"
+              >
+                <label for="paymentTerms">Payment Terms</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="paymentTerms"
+                    name="paymentTerms"
+                    disabled=""
+                    value="15        "
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_dealLength"
+                name="divc_dealLength"
+                class="col-md-4 mb-12"
+              >
+                <label for="dealLength">Deal Length</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="dealLength"
+                    name="dealLength"
+                    disabled=""
+                    value="60"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12 requiredAsterikLabel">
+                Required fields marked with asterisk
+              </div>
+            </div>
+            <div>&nbsp;</div>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <h2 style="width:95%; margin:0px auto;">
+            Calculations &amp; Control Data
+          </h2>
+          <form
+            id="form2"
+            method="post"
+            action="http://10.104.0.112:8088/demo-swap-manager/swap.php?rowid=1469&amp;revisionNumber=8&amp;action=VIEW&amp;PARENT=Active%20Swaps"
+          >
+            <div
+              class="row"
+              style="background-color:#EAEAEA; border:1px solid #AAA; width:95%; margin:0px auto; padding-top:5px; padding-bottom:5px;"
+            >
+              <div
+                id="divc_originalDealMargin"
+                name="divc_originalDealMargin"
+                class="col-md-6 mb-12"
+              >
+                <label for="originalDealMargin">Original Deal Margin</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text"
+                      id="curlbl-originalDealMargin"
+                      >USD</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="originalDealMargin"
+                    name="originalDealMargin"
+                    placeholder="0.00"
+                    disabled=""
+                    onchange="recalcFull();"
+                    value="4238.00"
+                  />
+                </div>
+              </div>
+              <div id="divc_margin" name="divc_margin" class="col-md-6 mb-12">
+                <label for="margin">Margin %</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="margin"
+                    name="margin"
+                    placeholder="0.00%"
+                    disabled=""
+                    value=".00"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_totalCurrentMargin"
+                name="divc_totalCurrentMargin"
+                class="col-md-6 mb-12"
+              >
+                <label for="totalCurrentMargin">Total Current Margin</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span
+                      class="input-group-text"
+                      id="curlbl-totalCurrentMargin"
+                      >USD</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="totalCurrentMargin"
+                    name="totalCurrentMargin"
+                    placeholder="0.00"
+                    disabled=""
+                    value="2478.00"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_exchangeRate"
+                name="divc_exchangeRate"
+                class="col-md-6 mb-12"
+              >
+                <label for="exchangeRate">Exchange Rate</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="curlbl-exchangeRate"
+                      >USD</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="exchangeRate"
+                    name="exchangeRate"
+                    placeholder="0.00"
+                    disabled=""
+                    onchange="recalcFull();"
+                    value="1.00000"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_marginVariance"
+                name="divc_marginVariance"
+                class="col-md-6 mb-12"
+              >
+                <label for="marginVariance">Margin Variance</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="curlbl-marginVariance"
+                      >USD</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="marginVariance"
+                    name="marginVariance"
+                    placeholder="0.00"
+                    disabled=""
+                    value="-1760.00"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_totalDealRevenue"
+                name="divc_totalDealRevenue"
+                class="col-md-6 mb-12"
+              >
+                <label for="totalDealRevenue">Total Deal Revenue</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="curlbl-totalDealRevenue"
+                      >USD</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="totalDealRevenue"
+                    name="totalDealRevenue"
+                    placeholder="0.00"
+                    disabled=""
+                    value="217210.00"
+                  />
+                </div>
+              </div>
+              <div
+                id="divc_revisionNumber"
+                name="divc_revisionNumber"
+                class="col-md-6 mb-12"
+              >
+                <label for="revisionNumber">Revision Number</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control text-left"
+                    id="revisionNumber"
+                    name="revisionNumber"
+                    disabled=""
+                    value="8"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>&nbsp;</div>
+          </form>
+        </div>
+      </div>
+      <div>&nbsp;</div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10">
+            <h2>INBOUND Detail</h2>
+          </div>
+          <div><button type="button" id="btnAddCol">EUR-view</button></div>
+          <div class="col-md-2" style="text-align: right;">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table
+                id="tINBOUND"
+                name="tINBOUND"
+                class="table table-striped table-hover  table-bordered dflex"
+                style="text-align:center;"
+              >
+                <thead>
+                  <tr>
+                    <th style="display:none;">&nbsp;</th>
+                    <th>
+                      <div style=" width:200px!important; height:auto;">
+                        Parent
+                      </div>
+                    </th>
+                    <th style="display:none;">
+                      <div style=" width:200px!important; height:auto;">
+                        ChildID
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:200px!important; height:auto;">
+                        Child
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Sell Rate
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Deal Minutes
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Revenue
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Daily Min.Expected
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Cost Per Minute
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Margin
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Margin %
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Margin per Minute
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Start Date
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        End Date
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="ibtr_2" name="ibtr_2">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>DOMINICAN REP (Mobiles)</td>
+                    <td style="display:none;">9339;9340;9341</td>
+                    <td
+                      title="* DOMINICAN REP-M ALTICE
+* DOMINICAN REP-M CLARO
+* DOMINICAN REP-M TRILOGY"
+                    >
+                      DOMINICAN REP-M ALT [...]
+                    </td>
+                    <td>USD 0.08150</td>
+                    <td>889,312</td>
+                    <td>USD 72,478.93</td>
+                    <td>14,822</td>
+                    <td>USD 0.07600</td>
+                    <td>USD 4,891.22</td>
+                    <td>6.75 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/13/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_1" name="ibtr_1">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>DOMINICAN REP (Mobiles)</td>
+                    <td style="display:none;">502;847;1004;1161</td>
+                    <td
+                      title="* DOMINICAN REP-M OTR
+* DOMINICAN REP-MOB VZ
+* DOMINICAN REP-MOB OR
+* DOMINICAN REP-M CEN"
+                    >
+                      DOMINICAN REP-M OTR [...]
+                    </td>
+                    <td>USD 0.08150</td>
+                    <td>110,688</td>
+                    <td>USD 9,021.07</td>
+                    <td>1,845</td>
+                    <td>USD 0.07600</td>
+                    <td>USD 608.78</td>
+                    <td>6.75 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>02/12/2020</td>
+                  </tr>
+                  <tr id="ibtr_3" name="ibtr_3">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>GUATEMALA-M COMCEL</td>
+                    <td style="display:none;">59</td>
+                    <td>GUATEMALA-M COMCEL</td>
+                    <td>USD 0.09800</td>
+                    <td>400,000</td>
+                    <td>USD 39,200.00</td>
+                    <td>6,667</td>
+                    <td>USD 0.09300</td>
+                    <td>USD 2,000.00</td>
+                    <td>5.10 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_4" name="ibtr_4">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>GUATEMALA-M PCS</td>
+                    <td style="display:none;">1018</td>
+                    <td>GUATEMALA-M PCS</td>
+                    <td>USD 0.09200</td>
+                    <td>50,000</td>
+                    <td>USD 4,600.00</td>
+                    <td>833</td>
+                    <td>USD 0.08700</td>
+                    <td>USD 250.00</td>
+                    <td>5.43 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_5" name="ibtr_5">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>HONDURAS-M CLARO</td>
+                    <td style="display:none;">524</td>
+                    <td>HONDURAS-M CLARO</td>
+                    <td>USD 0.10450</td>
+                    <td>300,000</td>
+                    <td>USD 31,350.00</td>
+                    <td>5,000</td>
+                    <td>USD 0.09900</td>
+                    <td>USD 1,650.00</td>
+                    <td>5.26 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_6" name="ibtr_6">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>IRAQ (Mobiles)</td>
+                    <td style="display:none;">537;1187</td>
+                    <td
+                      title="* IRAQ-M ASIA CELL
+* IRAQ-M ZAIN"
+                    >
+                      IRAQ-M ASIA CELL;IR [...]
+                    </td>
+                    <td>USD 0.17300</td>
+                    <td>50,000</td>
+                    <td>USD 8,650.00</td>
+                    <td>833</td>
+                    <td>USD 0.15800</td>
+                    <td>USD 750.00</td>
+                    <td>8.67 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_7" name="ibtr_7">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>ISRAEL (Mobiles)</td>
+                    <td style="display:none;">1190;874;222</td>
+                    <td
+                      title="* ISRAEL-M CELLCOM
+* ISRAEL-M OTHR
+* ISRAEL-MOBILE"
+                    >
+                      ISRAEL-M CELLCOM;IS [...]
+                    </td>
+                    <td>USD 0.01500</td>
+                    <td>500,000</td>
+                    <td>USD 7,500.00</td>
+                    <td>8,333</td>
+                    <td>USD 0.01430</td>
+                    <td>USD 350.00</td>
+                    <td>4.67 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_8" name="ibtr_8">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>SAUDI ARABIA (Mobiles)</td>
+                    <td style="display:none;">421;422;423;593;594;117;749</td>
+                    <td
+                      title="* SAUDI ARABIA-M BRAVO
+* SAUDI ARABIA-M VIRGIN
+* SAUDI ARABIA-M ZAIN
+* SAUDI ARABIA-M OTHR
+* SAUDI ARABIA-M STC
+* SAUDI ARABIA-M MOBILY
+* SAUDI ARABIA-M LEBARA"
+                    >
+                      SAUDI ARABIA-M BRAV [...]
+                    </td>
+                    <td>USD 0.09500</td>
+                    <td>10,000</td>
+                    <td>USD 950.00</td>
+                    <td>167</td>
+                    <td>USD 0.09000</td>
+                    <td>USD 50.00</td>
+                    <td>5.26 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_9" name="ibtr_9">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>SOUTH SUDAN (Mobiles)</td>
+                    <td style="display:none;">1328;130;275;931;1084</td>
+                    <td
+                      title="* SOUTH SUDAN-M SUDTEL
+* SOUTH SUDAN-M ZAIN
+* SOUTH SUDAN-M NOW
+* SOUTH SUDAN-M GEMTEL
+* SOUTH SUDAN-M-MTN"
+                    >
+                      SOUTH SUDAN-M SUDTE [...]
+                    </td>
+                    <td>USD 0.35000</td>
+                    <td>754</td>
+                    <td>USD 263.90</td>
+                    <td>13</td>
+                    <td>USD 0.37000</td>
+                    <td>USD -15.08</td>
+                    <td>-5.71 %</td>
+                    <td>USD -0.02</td>
+                    <td>02/01/2020</td>
+                    <td>02/17/2020</td>
+                  </tr>
+                  <tr id="ibtr_10" name="ibtr_10">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>SOUTH SUDAN (Mobiles)</td>
+                    <td style="display:none;">1084;931;275;130</td>
+                    <td
+                      title="* SOUTH SUDAN-M-MTN
+* SOUTH SUDAN-M GEMTEL
+* SOUTH SUDAN-M NOW
+* SOUTH SUDAN-M ZAIN"
+                    >
+                      SOUTH SUDAN-M-MTN;S [...]
+                    </td>
+                    <td>USD 0.35000</td>
+                    <td>40,000</td>
+                    <td>USD 14,000.00</td>
+                    <td>667</td>
+                    <td>USD 0.37000</td>
+                    <td>USD -800.00</td>
+                    <td>-5.71 %</td>
+                    <td>USD -0.02</td>
+                    <td>02/18/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_11" name="ibtr_11">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>UK (Mobiles)</td>
+                    <td style="display:none;">
+                      141;299;300;301;444;1104;1105;785
+                    </td>
+                    <td
+                      title="* UK-M LYCA
+* UK-M HUTCHISON 3G
+* UK-M O2
+* UK-M ORANG
+* UK-M JERSEY
+* UK-M TM
+* UK-M VODAFONE
+* UK-M OTHR"
+                    >
+                      UK-M LYCA;UK-M HUTC [...]
+                    </td>
+                    <td>USD 0.00660</td>
+                    <td>4,059,917</td>
+                    <td>USD 26,795.45</td>
+                    <td>67,665</td>
+                    <td>USD 0.00620</td>
+                    <td>USD 1,623.97</td>
+                    <td>6.06 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="ibtr_12" name="ibtr_12">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>VIETNAM (Mobiles - NonViettel)</td>
+                    <td style="display:none;">617;304;618;1112</td>
+                    <td
+                      title="* VIETNAM-M OTHR
+* VIETNAM-M MIFONE
+* VIETNAM-M VINA
+* VIETNAM-M VIETTEL"
+                    >
+                      VIETNAM-M OTHR;VIET [...]
+                    </td>
+                    <td>USD 0.04800</td>
+                    <td>7,997</td>
+                    <td>USD 383.86</td>
+                    <td>133</td>
+                    <td>USD 0.04600</td>
+                    <td>USD 15.99</td>
+                    <td>4.17 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>02/17/2020</td>
+                  </tr>
+                  <tr id="ibtr_13" name="ibtr_13">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>VIETNAM (Mobiles - NonViettel)</td>
+                    <td style="display:none;">1534;1561;1112;618;304;617</td>
+                    <td
+                      title="* VIETNAM-M VINAMOBILE
+* VIETNAM-M GMOBILE
+* VIETNAM-M VIETTEL
+* VIETNAM-M VINA
+* VIETNAM-M MIFONE
+* VIETNAM-M OTHR"
+                    >
+                      VIETNAM-M VINAMOBIL [...]
+                    </td>
+                    <td>USD 0.04800</td>
+                    <td>877</td>
+                    <td>USD 42.10</td>
+                    <td>15</td>
+                    <td>USD 0.04400</td>
+                    <td>USD 3.51</td>
+                    <td>8.33 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/18/2020</td>
+                    <td>02/18/2020</td>
+                  </tr>
+                  <tr id="ibtr_14" name="ibtr_14">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>VIETNAM (Mobiles - NonViettel)</td>
+                    <td style="display:none;">1534;1561;304;617;618;1112</td>
+                    <td
+                      title="* VIETNAM-M VINAMOBILE
+* VIETNAM-M GMOBILE
+* VIETNAM-M MIFONE
+* VIETNAM-M OTHR
+* VIETNAM-M VINA
+* VIETNAM-M VIETTEL"
+                    >
+                      VIETNAM-M VINAMOBIL [...]
+                    </td>
+                    <td>USD 0.04800</td>
+                    <td>41,144</td>
+                    <td>USD 1,974.91</td>
+                    <td>686</td>
+                    <td>USD 0.04600</td>
+                    <td>USD 82.29</td>
+                    <td>4.17 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/19/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                </tbody>
+                <tfoot style="font-weight:bold;">
+                  <tr>
+                    <td colspan="3">Sub-Totals</td>
+                    <td>6,460,689</td>
+                    <td>USD 217,210.22</td>
+                    <td>107,679</td>
+                    <td>&nbsp;</td>
+                    <td>USD 11,460.68</td>
+                    <td>&nbsp;</td>
+                    <td colspan="1" rowspan="1">0</td>
+                    <td colspan="1" rowspan="1">0</td>
+                    <td colspan="1" rowspan="1">0</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>&nbsp;</div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10"><h2>OUTBOUND Detail</h2></div>
+          <div class="col-md-2" style="text-align: right;">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table
+                id="tOUTBOUND"
+                name="tOUTBOUND"
+                class="table table-striped table-hover  table-bordered dflex"
+                style="text-align:center;"
+              >
+                <thead>
+                  <tr>
+                    <th style="display:none;">&nbsp;</th>
+                    <th>
+                      <div style=" width:200px!important; height:auto;">
+                        Parent
+                      </div>
+                    </th>
+                    <th style="display:none;">
+                      <div style=" width:200px!important; height:auto;">
+                        ChildID
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:200px!important; height:auto;">
+                        Child
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Buy Rate
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Deal Minutes
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Revenue
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Daily Min.Expected
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Net Cost
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Margin
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Margin %
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Margin per Minute
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        Start Date
+                      </div>
+                    </th>
+                    <th>
+                      <div style=" width:100px!important; height:auto;">
+                        End Date
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="obtr_1" name="obtr_1">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>ETHIOPIA (Mobiles)</td>
+                    <td style="display:none;">668;854</td>
+                    <td
+                      title="* ETHIOPIA-M ADDIS-M
+* ETHIOPIA-M OTHR"
+                    >
+                      ETHIOPIA-M ADDIS-M; [...]
+                    </td>
+                    <td>USD 0.18500</td>
+                    <td>300,000</td>
+                    <td>USD 55,500.00</td>
+                    <td>5,000</td>
+                    <td>USD 0.18000</td>
+                    <td>USD 1,500.00</td>
+                    <td>2.70 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="obtr_2" name="obtr_2">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>LIBERIA-M MTN</td>
+                    <td style="display:none;">74</td>
+                    <td>LIBERIA-M MTN</td>
+                    <td>USD 0.28000</td>
+                    <td>23,836</td>
+                    <td>USD 6,674.08</td>
+                    <td>397</td>
+                    <td>USD 0.27300</td>
+                    <td>USD 166.85</td>
+                    <td>2.50 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/01/2020</td>
+                    <td>02/25/2020</td>
+                  </tr>
+                  <tr id="obtr_3" name="obtr_3">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>LIBERIA-M MTN</td>
+                    <td style="display:none;">74</td>
+                    <td>LIBERIA-M MTN</td>
+                    <td>USD 0.28000</td>
+                    <td>1</td>
+                    <td>USD 0.28</td>
+                    <td>0</td>
+                    <td>USD 0.27300</td>
+                    <td>USD 0.01</td>
+                    <td>2.50 %</td>
+                    <td>USD 0.01</td>
+                    <td>03/09/2020</td>
+                    <td>03/09/2020</td>
+                  </tr>
+                  <tr id="obtr_4" name="obtr_4">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>MOROCCO-M MEDITEL</td>
+                    <td style="display:none;">1057</td>
+                    <td>MOROCCO-M MEDITEL</td>
+                    <td>USD 0.38200</td>
+                    <td>1</td>
+                    <td>USD 0.38</td>
+                    <td>0</td>
+                    <td>USD 0.38200</td>
+                    <td>USD 0.00</td>
+                    <td>0.00 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>02/13/2020</td>
+                  </tr>
+                  <tr id="obtr_5" name="obtr_5">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>MOROCCO-M MEDITEL</td>
+                    <td style="display:none;">1057</td>
+                    <td>MOROCCO-M MEDITEL</td>
+                    <td>USD 0.38200</td>
+                    <td>80,000</td>
+                    <td>USD 30,560.00</td>
+                    <td>1,333</td>
+                    <td>USD 0.38500</td>
+                    <td>USD -240.00</td>
+                    <td>-0.79 %</td>
+                    <td>USD -0.00</td>
+                    <td>02/14/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="obtr_7" name="obtr_7">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>NIGERIA (Mobiles)</td>
+                    <td style="display:none;">259;1066</td>
+                    <td
+                      title="* NIGERIA-M GLOBACOM
+* NIGERIA-M MTN"
+                    >
+                      NIGERIA-M GLOBACOM; [...]
+                    </td>
+                    <td>USD 0.07200</td>
+                    <td>199,444</td>
+                    <td>USD 14,359.97</td>
+                    <td>3,324</td>
+                    <td>USD 0.06800</td>
+                    <td>USD 797.78</td>
+                    <td>5.56 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/18/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="obtr_6" name="obtr_6">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>NIGERIA (Mobiles)</td>
+                    <td style="display:none;">1066;259</td>
+                    <td
+                      title="* NIGERIA-M MTN
+* NIGERIA-M GLOBACOM"
+                    >
+                      NIGERIA-M MTN;NIGER [...]
+                    </td>
+                    <td>USD 0.07200</td>
+                    <td>556</td>
+                    <td>USD 40.03</td>
+                    <td>9</td>
+                    <td>USD 0.06900</td>
+                    <td>USD 1.67</td>
+                    <td>4.17 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>02/17/2020</td>
+                  </tr>
+                  <tr id="obtr_8" name="obtr_8">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>NIGERIA-M AIRTEL</td>
+                    <td style="display:none;">1065</td>
+                    <td>NIGERIA-M AIRTEL</td>
+                    <td>USD 0.07500</td>
+                    <td>50,000</td>
+                    <td>USD 3,750.00</td>
+                    <td>833</td>
+                    <td>USD 0.07100</td>
+                    <td>USD 200.00</td>
+                    <td>5.33 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="obtr_9" name="obtr_9">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>QATAR (Mobiles)</td>
+                    <td style="display:none;">924;107</td>
+                    <td
+                      title="* QATAR-M QTEL
+* QATAR-M VODAFONE"
+                    >
+                      QATAR-M QTEL;QATAR- [...]
+                    </td>
+                    <td>USD 0.13000</td>
+                    <td>9,123</td>
+                    <td>USD 1,185.99</td>
+                    <td>152</td>
+                    <td>USD 0.12700</td>
+                    <td>USD 27.37</td>
+                    <td>2.31 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>02/04/2020</td>
+                  </tr>
+                  <tr id="obtr_10" name="obtr_10">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>QATAR (Mobiles)</td>
+                    <td style="display:none;">107;924</td>
+                    <td
+                      title="* QATAR-M VODAFONE
+* QATAR-M QTEL"
+                    >
+                      QATAR-M VODAFONE;QA [...]
+                    </td>
+                    <td>USD 0.13500</td>
+                    <td>240,876</td>
+                    <td>USD 32,518.26</td>
+                    <td>4,015</td>
+                    <td>USD 0.12700</td>
+                    <td>USD 1,927.01</td>
+                    <td>5.93 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/05/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="obtr_11" name="obtr_11">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>ROMANIA (Mobiles)</td>
+                    <td style="display:none;">
+                      1242;1243;1488;111;110;265;586
+                    </td>
+                    <td
+                      title="* ROMANIA-M ORANG
+* ROMANIA-M ROMTEL
+* ROMANIA-M MVNO
+* ROMANIA-M DIGIM
+* ROMANIA-M COSMOROM
+* ROMANIA-M TELEMIL
+* ROMANIA-M VODAFONE"
+                    >
+                      ROMANIA-M ORANG;ROM [...]
+                    </td>
+                    <td>USD 0.00870</td>
+                    <td>1</td>
+                    <td>USD 0.01</td>
+                    <td>0</td>
+                    <td>USD 0.00840</td>
+                    <td>USD 0.00</td>
+                    <td>3.45 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/01/2020</td>
+                    <td>02/21/2020</td>
+                  </tr>
+                  <tr id="obtr_12" name="obtr_12">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>ROMANIA (Mobiles)</td>
+                    <td style="display:none;">
+                      586;265;110;111;1488;1243;1242
+                    </td>
+                    <td
+                      title="* ROMANIA-M VODAFONE
+* ROMANIA-M TELEMIL
+* ROMANIA-M COSMOROM
+* ROMANIA-M DIGIM
+* ROMANIA-M MVNO
+* ROMANIA-M ROMTEL
+* ROMANIA-M ORANG"
+                    >
+                      ROMANIA-M VODAFONE; [...]
+                    </td>
+                    <td>USD 0.00870</td>
+                    <td>3,803,818</td>
+                    <td>USD 33,093.22</td>
+                    <td>63,397</td>
+                    <td>USD 0.00820</td>
+                    <td>USD 1,901.91</td>
+                    <td>5.75 %</td>
+                    <td>USD 0.00</td>
+                    <td>02/21/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="obtr_13" name="obtr_13">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>SUDAN M-ZAIN</td>
+                    <td style="display:none;">770</td>
+                    <td>SUDAN M-ZAIN</td>
+                    <td>USD 0.12200</td>
+                    <td>130,000</td>
+                    <td>USD 15,860.00</td>
+                    <td>2,167</td>
+                    <td>USD 0.11300</td>
+                    <td>USD 1,170.00</td>
+                    <td>7.38 %</td>
+                    <td>USD 0.01</td>
+                    <td>02/26/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                  <tr id="obtr_14" name="obtr_14">
+                    <td style="display:none;">&nbsp;</td>
+                    <td>TANZANIA (Mobiles)</td>
+                    <td style="display:none;">779;136;137;1272;937;1099</td>
+                    <td
+                      title="* TANZANIA-M AIRTEL
+* TANZANIA-M OTHR
+* TANZANIA-M VODACOM
+* TANZANIA-M TTCL
+* TANZANIA-M MITEL
+* TANZANIA-M ZANTEL"
+                    >
+                      TANZANIA-M AIRTEL;T [...]
+                    </td>
+                    <td>USD 0.25000</td>
+                    <td>90,000</td>
+                    <td>USD 22,500.00</td>
+                    <td>1,500</td>
+                    <td>USD 0.23300</td>
+                    <td>USD 1,530.00</td>
+                    <td>6.80 %</td>
+                    <td>USD 0.02</td>
+                    <td>02/01/2020</td>
+                    <td>03/31/2020</td>
+                  </tr>
+                </tbody>
+                <tfoot style="font-weight:bold;">
+                  <tr>
+                    <td colspan="3">Sub-Totals</td>
+                    <td>4,927,656</td>
+                    <td>USD 216,042.22</td>
+                    <td>82,127</td>
+                    <td>&nbsp;</td>
+                    <td>USD 8,982.60</td>
+                    <td>&nbsp;</td>
+                    <td colspan="1" rowspan="1">0</td>
+                    <td colspan="1" rowspan="1">0</td>
+                    <td colspan="1" rowspan="1">0</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>&nbsp;</div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12"><h2>Totals</h2></div>
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+            <table
+              id="tTotals"
+              name="tTotals"
+              class="table table-striped table-hover"
+              border="1"
+              style="text-align: center;"
+            >
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Deal Minutes</th>
+                  <th>Revenue</th>
+                  <th>Daily Min Expected</th>
+                  <th>Margin</th>
+                  <th>Margin %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="font-weight: bold;">
+                  <td>Deal Totals</td>
+                  <td>11,388,345</td>
+                  <td>USD 433,252.44</td>
+                  <td>189,806</td>
+                  <td>USD 2,478.08</td>
+                  <td>4.72%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        id="mdark"
+        name="mdark"
+        class="master_dark"
+        style="display:none;"
+        onclick="closeIOBalloon();"
+      ></div>
+      <div
+        id="ioBalloon"
+        name="ioBalloon"
+        class="ioBalloon radius-corners"
+        style="display:none;"
+      ></div>
+      <div
+        id="wdark"
+        name="wdark"
+        class="master_dark"
+        style="display: none;"
+      ></div>
+      <div
+        id="waitBalloon"
+        name="waitBalloon"
+        class="radius-corners"
+        style="display: none;"
+      >
+        Wait...
+      </div>
+      <div
+        id="waitBalloonMedium"
+        name="waitBalloonMedium"
+        class="radius-corners"
+        style="display:none;"
+      ></div>
+      <div
+        id="sscDark"
+        name="sscDark"
+        class="master_dark"
+        style="display:none;"
+      ></div>
+      <div
+        id="sscBalloon"
+        name="sscBalloon"
+        class="ioBalloon sscBalloon  radius-corners"
+        style="display:none;"
+      ></div>
+      <div
+        id="errorDark"
+        name="errorDark"
+        class="master_dark"
+        style="display:none;"
+        onclick="closeErrorBalloon();"
+      ></div>
+      <div
+        id="errorBalloon"
+        name="errorBalloon"
+        class="ioBalloon sscBalloon  radius-corners"
+        style="display:none;"
+      ></div>
+      <div
+        class="modal fade modalDrag"
+        id="modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="Modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div
+              class="modal-body"
+              id="modal-iframe"
+              style="width:100%; height:100%"
+            >
+              <!-- <iframe id="add-iframe" style="width:100%;border:none; height:700px;"/> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="iframeGhost_c"
+        name="iframeGhost_c"
+        style="border:1px solid #000;  width:1px; height:1px; overflow:hidden;"
+      >
+        <iframe
+          id="iframeGhost"
+          name="iframeGhost"
+          frameborder="0"
+          style="width:1px; height:1px; position:fixed; left:0px; top:0px;"
+          src="./SWAP Manager_files/saved_resource.html"
+        ></iframe>
+      </div>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+    </div>
+    <footer>
+      <table>
+        <tbody>
+          <tr>
+            <td>User: jabascal</td>
+            <td title="Last update : 2020-01-12 10:50">v1.0.1.28</td>
+            <td align="right">F&amp;P ©&nbsp;&nbsp;&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+    </footer>
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/jquery-3.2.1.min.js.download"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/bootstrap.bundle.min.js.download"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/Sortable.min.js.download"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/bootstrap-select.min.js.download"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/jquery.dataTables.min.js.download"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/custom.js.download"
+    ></script>
+    <script type="text/javascript" src="multi-currency.js"></script>
+    <script type="text/javascript">
+      var CMLNK = "http://10.104.0.112:8088/demo-swap-manager/";
+      var arIOBColWidth = [2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+      var arCurrencyFields = [
+        "originalDealMargin",
+        "totalCurrentMargin",
+        "marginVariance",
+        "totalDealRevenue"
+      ];
+      var inboundNTR = 1000;
+      var outboundNTR = 1000;
+      var childTDLimitLength = 23;
+      var currencyLabel = "USD";
+      var swapID = "1469";
+      var revisionNumber = "8";
+      var xaction = "VIEW";
+      var flagTRKiller = false;
+      var killedTRRef = "";
+    </script>
+
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/common-swap-management.js.download"
+    ></script>
+
+    <script type="text/javascript">
+      showWaitBalloon("Wait...");
+      reloadSelectPicker();
+      hideWaitBalloon();
+    </script>
+
+    <script
+      type="text/javascript"
+      src="./SWAP Manager_files/systemCalculator.js.download"
+    ></script>
+
+    <script type="text/javascript">
+      function getSelectedOption(xid) {
+        var opt;
+        var sel = document.getElementById(xid);
+        for (var i = 0, len = sel.options.length; i < len; i++) {
+          opt = sel.options[i];
+          if (opt.selected === true) alert("i" + i + ": " + opt.value);
+        }
+        return opt;
+      }
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        recalcFull();
+      });
+    </script>
+
+    <script>
+      $(document).ready(function() {
+        $(".modal-header").on("mousedown", function(mousedownEvt) {
+          var $draggable = $(this);
+          var x = mousedownEvt.pageX - $draggable.offset().left,
+            y = mousedownEvt.pageY - $draggable.offset().top;
+          $("body").on("mousemove.draggable", function(mousemoveEvt) {
+            $draggable.closest(".modal-dialog").offset({
+              left: mousemoveEvt.pageX - x,
+              top: mousemoveEvt.pageY - y
+            });
+          });
+          $("body").one("mouseup", function() {
+            $("body").off("mousemove.draggable");
+          });
+          $draggable.closest(".modal").one("bs.modal.hide", function() {
+            $("body").off("mousemove.draggable");
+          });
+        });
+      });
+    </script>
+
+    <style>
+      .errorT {
+        display: inline-block;
+      }
+      #closeError {
+        display: inline-block;
+        font-size: 19px;
+        font-weight: bold;
+        color: red;
+        cursor: pointer;
+      }
+    </style>
+  </body>
+</html>

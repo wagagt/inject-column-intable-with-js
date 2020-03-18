@@ -1,0 +1,55 @@
+	// JavaScript Document
+	function shDIV(elementId, tf) 
+	{ 
+		if (tf == 1) {document.getElementById(elementId).style.display = 'block';} 
+		else {document.getElementById(elementId).style.display = 'none'; }
+	}
+	
+	function showDark()
+	{
+		shDIV('master_dark', 1);
+	}
+	
+	function hideDark()
+	{
+		shDIV('master_dark', 0);
+	}
+	
+	function showBalloon(title, content)
+	{
+		showDark();
+		iHTML = '<h1>'+title+'</h1>';
+		iHTML += '<div class="content">'+content+'</div>';
+		iHTML += '<div class="closelabel radius_corners" onclick="hideBalloon();">Cerrar</div>';
+		document.getElementById('master_balloon').innerHTML = iHTML;
+		shDIV('master_balloon', 1);
+	}
+	
+	function hideBalloon()
+	{
+		shDIV('master_balloon', 0);
+		shDIV('master_dark', 0);
+	}
+	
+	function hideErrorBallon()
+	{
+		shDIV('error_balloon', 0);
+		shDIV('error_dark', 0);
+	}
+	
+	function hideOKBallon()
+	{
+		shDIV('ok_balloon', 0);
+		shDIV('ok_dark', 0);
+	}
+
+	function verifyExistence(id)
+	{
+		if (document.getElementById(id) == null) return false;
+		return true;
+	}
+
+	function showIfExists(id)
+	{
+		if (verifyExistence(id)) shDIV(id, 1);
+	}

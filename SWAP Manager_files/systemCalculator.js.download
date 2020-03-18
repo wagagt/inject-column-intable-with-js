@@ -1,0 +1,493 @@
+    var colParent			= 1;
+    var colChildId			= 2;
+    var colChild			= 3;
+    var colRate				= 4;
+    var colDealMinutes		= 5;
+    var colRevenue			= 6;
+    var colDailyMinExpected	= 7;
+    var colCostPerMinute	= 8;
+    var colMargin			= 9;
+    var colMarginPercent    = 10;
+    var colMarginPerMinute	= 11;
+    var colStartDate		= 12;
+    var colEndDate			= 13;
+
+
+    var colTotalDealMinutes     = 1;
+    var colTotalRevenue         = 2;
+    var colTotalDailyMinExp     = 3;
+    var colTotalMargin          = 4;
+    var colTotalMarginPercent   = 5;
+    var arJSON                  = {};
+
+    function clearFormatOnValue(r, nCol, hasFormat = true) {
+        if (nCol == colStartDate || nCol == colEndDate ) {
+            var ar = r.split('/');
+            r = ar[2] + '-' + ar[0] + '-' + ar[1];
+        } else if ( hasFormat )
+            r = clearNumberFormat(r);
+        return r;
+    }
+
+    function getTableTBodyTDValue(xid, nRow, nCol, hasFormat = true) {
+        var r = $("#" + xid +" tbody tr:nth-child(" + nRow + ") td:nth-child(" + (nCol + 1) + ")").html();
+        r = clearFormatOnValue(r, nCol, hasFormat);
+        return r;
+    }
+
+    function setTableTBodyTDValue(xid, nRow, nCol, value) {
+        return $("#" + xid +" tbody tr:nth-child(" + nRow + ") td:nth-child(" + (nCol + 1) + ")").html(value);
+    }
+
+    function setTableTFooterTDValue(xid, nRow, nCol, value) {
+        return $("#" + xid +" tfoot tr:nth-child(" + nRow + ") td:nth-child(" + nCol + ")").html(value);
+    }
+
+    function recalcDetail(xid) {
+        var nrows  = document.getElementById(xid).getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
+        var xar3 = [];
+        dealLength = document.getElementById('dealLength').value;
+
+        for(var i = 1; i <= nrows; i++) {
+            xar3.push(
+                getTableTBodyTDValue(xid, i, colParent)
+                + '---' + getTableTBodyTDValue(xid, i, colChild)
+                + '---' + getTableTBodyTDValue(xid, i, colStartDate)
+                + '---' + getTableTBodyTDValue(xid, i, colEndDate)
+                + '!!!' + document.getElementById(xid).getElementsByTagName('tbody')[0].getElementsByTagName('tr')[i - 1].id
+            );
+
+            startDate = getTableTBodyTDValue(xid, i, colStartDate);
+            endDate = getTableTBodyTDValue(xid, i, colEndDate);
+            rate = getTableTBodyTDValue(xid, i, colRate);
+            dealMinutes = getTableTBodyTDValue(xid, i, colDealMinutes);
+            costPerMinute = getTableTBodyTDValue(xid, i, colCostPerMinute);
+
+            /*
+            alert(
+                'dealMinutes: ' + dealMinutes + "\r\n"
+                + 'costPerMinute: ' + costPerMinute + "\r\n"
+            );
+            */
+
+            // alert('x' + startDate + ' - ' + endDate + "\r\n" + rate + "\r\n" + dealMinutes + "\r\n" + costPerMinute);
+            // alert('ic: ' + colDealMinutes + ' / ' + colRevenue);
+
+            revenue = rate * dealMinutes;
+            dailyMinExpected = 0; if (dealLength != 0) dailyMinExpected = Math.round(dealMinutes / dealLength);
+            margin = revenue - (dealMinutes * costPerMinute);
+
+            // alert('y' + revenue + ' - (' + dealMinutes + ' * ' + costPerMinute + ')');
+            // alert('z' + margin + ' / ' + revenue);
+
+            marginPercent = 0; if (revenue != 0) marginPercent = margin / revenue;
+            marginPerMinute = 0; if (dealMinutes != 0) marginPerMinute = margin / dealMinutes;
+
+            revenue             = revenue.toFixed(2);
+            dailyMinExpected    = dailyMinExpected.toFixed(0); // 20190925 SP REQUIRE INT VALUE
+            margin              = margin.toFixed(2);
+            marginPercent       = marginPercent.toFixed(4);
+            marginPerMinute     = marginPerMinute.toFixed(2);
+
+            setTableTBodyTDValue(xid, i, colRate, numberCurrency(rate, 5));
+            setTableTBodyTDValue(xid, i, colRevenue, numberCurrency(revenue, 2));
+            setTableTBodyTDValue(xid, i, colDailyMinExpected, numberWithCommas(dailyMinExpected));
+            setTableTBodyTDValue(xid, i, colCostPerMinute, numberCurrency(costPerMinute, 5));
+            setTableTBodyTDValue(xid, i, colMargin, numberCurrency(margin, 2));
+            setTableTBodyTDValue(xid, i, colMarginPercent, numberPercent(marginPercent, 2));
+            setTableTBodyTDValue(xid, i, colMarginPerMinute, numberCurrency(marginPerMinute, 2));
+
+            // setTableTBodyTDValue(xid, i, colCostPerMinute, numberCurrency(costPerMinute, 5));
+            // setTableTBodyTDValue(xid, i, colRate, numberCurrency(rate, 5));
+
+
+        }
+
+        if (xar3.length > 0) {
+            xar3.sort();
+            var xkey3 = ''; var xhtml3 = ''; var aux3 = '';
+            for(var i = 0; i < xar3.length; i++) {
+                aux3 = xar3[i].split('!!!');
+                xhtml3 += '<tr id="' + aux3[1] + '" name="' + aux3[1] + '">'
+                            + document.getElementById(aux3[1]).innerHTML
+                            + '</tr>';
+            }
+            document.getElementById(xid).getElementsByTagName('tbody')[0].innerHTML = xhtml3;
+        }
+    }
+
+    function xReplace(v, search, replace) {
+        return v.split(search).join(replace);
+    }
+
+    function clearNumberFormat(v) {
+        var r = v;
+        r = r.replace('USD', '');
+        r = r.replace('EUR', '');
+        r = r.replace(' ', '');
+        // r = r.replace(',', '');
+        r = xReplace(r, ',', '');
+        return r;
+    }
+
+    function numberWithCommas(x) { // return x;
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function formatToMMDDYYYY(x) {
+        var ar = x.split('-');
+        return ar[1] + '/' + ar[2] + '/' + ar[0];
+    }
+
+    function numberCurrency(x, decimals) { // return x;
+        var v = currencyLabel + ' ';
+        var a = ('' + x).trim();
+
+        if (a.indexOf('.') != -1) {
+            var ar = a.split('.');
+            ar[0] = numberWithCommas(ar[0]);
+            ar[1] = (parseFloat('0.' + ar[1]).toFixed(decimals)).split('.')[1];
+            v += ar[0] + '.' + ar[1];
+        }
+        else {
+            v += numberWithCommas(parseFloat(x).toFixed(decimals));
+        }
+
+        if (v == '') alert('x:' + x);
+        return v;
+    }
+
+    function numberPercent(x, decimals) {
+        // var v = numberWithCommas((parseFloat(x) * 100).toFixed(decimals));
+        var w = parseFloat(x);
+        var xf = 1; if (w < 0) xf = -1;
+        w = Math.abs(w) * 100;
+        var v = w * xf;
+
+        // if (xf == -1) v = '-' + v;
+        return (v.toFixed(decimals) + ' %');
+    }
+
+    function getTableColumnTotal(xid, iCol) {
+        var nrows  = document.getElementById(xid).getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
+
+        var r = 0.00;
+        var xv = '';
+        var flag = 0;
+        // parseFloat(this.value).toFixed(2);
+        for(var i = 1; i <= nrows; i++) {
+            r += parseFloat(clearNumberFormat(getTableTBodyTDValue(xid, i, iCol)));
+        }
+        return parseFloat(r).toFixed(2);
+    }
+
+    function getFloatFromINPUT(xid) {
+        o = document.getElementById(xid);
+        var r = o.value;
+        r = r.trim();
+        if (r == '') return 0.00;
+        return parseFloat(r);
+    }
+
+    function recalcFull() {
+        // return;
+        calcDealLength();
+
+        recalcDetail('tINBOUND');
+        recalcDetail('tOUTBOUND');
+
+        var totalMarginINBOUND      = getTableColumnTotal('tINBOUND', colMargin);
+        var totalMarginOUTBOUND     = getTableColumnTotal('tOUTBOUND', colMargin);
+        var totalRevenueINBOUND     = getTableColumnTotal('tINBOUND', colRevenue);
+        var totalRevenueOUTBOUND    = getTableColumnTotal('tOUTBOUND', colRevenue);
+
+        var totalCurrentMargin = totalMarginINBOUND - totalMarginOUTBOUND; // Por REQ 36 se cambio de suma a resta
+
+        var marginVariance = totalCurrentMargin - getFloatFromINPUT('originalDealMargin');
+        var totalDealRevenue = totalRevenueINBOUND + totalRevenueOUTBOUND;
+
+        var p1 = 0; var p2 = 0;
+        if (totalRevenueINBOUND != 0) p1 = totalMarginINBOUND / totalRevenueINBOUND;
+        if (totalRevenueOUTBOUND != 0) p2 = totalMarginOUTBOUND / totalRevenueOUTBOUND;
+
+        var margin = 0;
+        if ((parseFloat(totalRevenueINBOUND) + parseFloat(totalRevenueOUTBOUND)) != 0)
+            margin = (
+                        (
+                            parseFloat(totalMarginINBOUND) + parseFloat(totalMarginOUTBOUND)
+                        )
+                        /
+                        (
+                            parseFloat(totalRevenueINBOUND) + parseFloat(totalRevenueOUTBOUND)
+                        )
+                        * 100
+                );
+
+
+
+
+        totalCurrentMargin  = totalCurrentMargin.toFixed(2);
+        marginVariance      = marginVariance.toFixed(2);
+        totalDealRevenue    = parseFloat(totalDealRevenue).toFixed(2);
+        margin              = margin.toFixed(2) + '%';
+
+        document.getElementById('totalCurrentMargin').value = totalCurrentMargin;
+        document.getElementById('marginVariance').value = marginVariance;
+        document.getElementById('totalDealRevenue').value = totalDealRevenue;
+        document.getElementById('margin').value = margin;
+
+        // ---------------------------------------------------------
+        // TOTALES
+        // ---------------------------------------------------------
+
+
+        var diDealMinutes = getTableColumnTotal('tINBOUND', colDealMinutes);
+        var doDealMinutes = getTableColumnTotal('tOUTBOUND', colDealMinutes);
+        var diRevenue = getTableColumnTotal('tINBOUND', colRevenue);
+        var doRevenue = getTableColumnTotal('tOUTBOUND', colRevenue);
+        var diDailyMinExpected = getTableColumnTotal('tINBOUND', colDailyMinExpected);
+        var doDailyMinExpected = getTableColumnTotal('tOUTBOUND', colDailyMinExpected);
+        var diMargin = totalMarginINBOUND;
+        var doMargin = totalMarginOUTBOUND;
+        // var diMarginPercent = getTableColumnTotal('tINBOUND', colMarginPercent);
+        // var doMarginPercent = getTableColumnTotal('tOUTBOUND', colMarginPercent);
+
+        diDealMinutes       = parseFloat(diDealMinutes).toFixed(0);
+        doDealMinutes       = parseFloat(doDealMinutes).toFixed(0);
+        diRevenue           = parseFloat(diRevenue).toFixed(2);
+        doRevenue           = parseFloat(doRevenue).toFixed(2);
+        diDailyMinExpected  = parseFloat(diDailyMinExpected).toFixed(0); // 20190925 SP REQUIRE INT VALUE
+        doDailyMinExpected  = parseFloat(doDailyMinExpected).toFixed(0); // 20190925 SP REQUIRE INT VALUE
+        diMargin            = parseFloat(diMargin).toFixed(2);
+        doMargin            = parseFloat(doMargin).toFixed(2);
+        // diMarginPercent     = parseFloat(diMarginPercent).toFixed(2);
+        // doMarginPercent     = parseFloat(doMarginPercent).toFixed(2);
+
+        ttDealMinutes = parseFloat(diDealMinutes) + parseFloat(doDealMinutes);
+        ttRevenue = parseFloat(diRevenue) + parseFloat(doRevenue);
+        ttDailyMinExp = parseFloat(diDailyMinExpected) + parseFloat(doDailyMinExpected);
+        ttMargin = parseFloat(diMargin) - parseFloat(doMargin);
+        // ttMarginPercent = parseFloat(diMarginPercent) + parseFloat(doMarginPercent);
+
+        ttDealMinutes = ttDealMinutes.toFixed(0);
+        ttRevenue = ttRevenue.toFixed(2);
+        ttDailyMinExp = ttDailyMinExp.toFixed(0); // 20190925 SP REQUIRE INT VALUE
+        ttMargin = ttMargin.toFixed(2);
+        // ttMarginPercent = ttMarginPercent.toFixed(2);
+
+        xid = 'tTotals';
+        setTableTBodyTDValue(xid, 1, colTotalDealMinutes, numberWithCommas(ttDealMinutes));
+        setTableTBodyTDValue(xid, 1, colTotalRevenue, numberCurrency(ttRevenue, 2));
+        setTableTBodyTDValue(xid, 1, colTotalDailyMinExp, numberWithCommas(ttDailyMinExp));
+        setTableTBodyTDValue(xid, 1, colTotalMargin, numberCurrency(ttMargin, 2));
+        // setTableTBodyTDValue(xid, 1, colTotalMarginPercent, ttMarginPercent);
+        setTableTBodyTDValue(xid, 1, colTotalMarginPercent, margin);
+
+
+        xid = 'tINBOUND';
+        setTableTFooterTDValue(xid, 1, 2, numberWithCommas(diDealMinutes));
+        setTableTFooterTDValue(xid, 1, 3, numberCurrency(diRevenue, 2));
+        setTableTFooterTDValue(xid, 1, 4, numberWithCommas(diDailyMinExpected));
+        setTableTFooterTDValue(xid, 1, 6, numberCurrency(diMargin, 2));
+        // setTableTFooterTDValue(xid, 1, 7, diMarginPercent);
+
+        xid = 'tOUTBOUND';
+        setTableTFooterTDValue(xid, 1, 2, numberWithCommas(doDealMinutes));
+        setTableTFooterTDValue(xid, 1, 3, numberCurrency(doRevenue, 2));
+        setTableTFooterTDValue(xid, 1, 4, numberWithCommas(doDailyMinExpected));
+        setTableTFooterTDValue(xid, 1, 6, numberCurrency(doMargin, 2));
+        // setTableTFooterTDValue(xid, 1, 7, doMarginPercent);
+
+
+    }
+
+    function editTR(io, id, parent) {
+
+
+        var r = '';
+        var tr = document.getElementById(id);
+        var i = 0;
+        var td = tr.getElementsByTagName("td")[colChildId];
+        var xparent = tr.getElementsByTagName("td")[colParent].innerHTML;
+        var xchilds = tr.getElementsByTagName("td")[2].innerHTML.split(';').join('|'); // colChildId
+        if (xparent == '--Single Breakout--') xparent = '0';
+
+        var xd = tr.getElementsByTagName("td")[colStartDate].innerHTML;
+        var xdStart = clearFormatOnValue(xd, colStartDate);
+
+        xd = tr.getElementsByTagName("td")[colEndDate].innerHTML;
+        var xdEnd = clearFormatOnValue(xd, colEndDate);
+
+        // alert('v' + "\r\n" + xd1 + "\r\n" + xd2);
+
+        // getTableTBodyTDValue
+        // alert(xparent);
+        r += 'io=' + io
+            + '&' + 'trRef=' + id
+            + '&' + 'step=3'
+            + '&' + 'parentId='             + encodeURI(xparent)
+            + '&' + 'childId='              + encodeURI(xchilds)
+            // + '&' + 'fIO_StartDate='        + encodeURI(clearFormatOnValue(tr.getElementsByTagName("td")[colStartDate].innerHTML), colStartDate) // colStartDate
+            + '&' + 'fIO_StartDate='        + encodeURI(xdStart) // colStartDate
+            // + '&' + 'fIO_EndDate='          + encodeURI(clearFormatOnValue(tr.getElementsByTagName("td")[colEndDate].innerHTML), colEndDate) // colEndDate
+            + '&' + 'fIO_EndDate='          + encodeURI(xdEnd) // colEndDate
+            + '&' + 'fIO_Rate='             + encodeURI(clearFormatOnValue(tr.getElementsByTagName("td")[colRate].innerHTML), colRate) // colRate
+            + '&' + 'fIO_DealMinutes='      + encodeURI(clearFormatOnValue(tr.getElementsByTagName("td")[colDealMinutes].innerHTML), colDealMinutes) // colDealMinutes
+            + '&' + 'fIO_CostPerMinute='    + encodeURI(clearFormatOnValue(tr.getElementsByTagName("td")[colCostPerMinute].innerHTML), colCostPerMinute) // colCostPerMinute
+            + '&' + 'parentAction=' + encodeURI(xaction)
+        ;
+
+        showIOBalloonEdit(r,parent);
+
+    }
+
+    function getArrayFromDetailTables(xid, directionId) {
+        var nRow  = 0;
+        var detNRows = 0;
+        detNRows = document.getElementById(xid).getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
+        var r = new Array(detNRows);
+
+        for(var i = 1; i <= detNRows; i++) {
+
+            var arDestKeyId = getTableTBodyTDValue(xid, i, colChildId).split(';');
+            for(var j = 0; j < arDestKeyId.length; j++) {
+                r[nRow++] = {"DestinationParent"	: getTableTBodyTDValue(xid, i, colParent, false),
+                            "DestKeyId"				: arDestKeyId[j],
+                            "DirectionId"			: directionId,
+                            "Rate"					: getTableTBodyTDValue(xid, i, colRate),
+                            "DealMinutes"			: getTableTBodyTDValue(xid, i, colDealMinutes),
+                            "Revenue"				: getTableTBodyTDValue(xid, i, colRevenue),
+                            "DailyMinExpected"		: getTableTBodyTDValue(xid, i, colDailyMinExpected),
+                            "CostPerMinute"			: getTableTBodyTDValue(xid, i, colCostPerMinute),
+                            "Margin"				: getTableTBodyTDValue(xid, i, colMargin),
+                            "MarginPerMinute"		: getTableTBodyTDValue(xid, i, colMarginPerMinute),
+                            "StartDate"				: getTableTBodyTDValue(xid, i, colStartDate),
+                            "EndDate"				: getTableTBodyTDValue(xid, i, colEndDate)
+                        };
+            }
+        }
+
+        return r;
+        //
+    }
+
+    function generateJSON(swapID) {
+
+        var hMargin = document.getElementById('margin').value;
+        hMargin = hMargin.trim();
+        if (hMargin != '') {
+            hMargin = hMargin.replace('%', '');
+            hMargin = hMargin.replace(' ', '');
+            if (hMargin != '') {
+                hMargin = parseFloat(hMargin) / 100;
+                // alert('x: ' + hMargin);
+            }
+        }
+
+        // HEADER DATA
+        var xdata = {
+            'swap' : {
+                'SwapID' : swapID,
+                'SwapTypeID': document.getElementById('swapTypeId').value,
+                'AccountManagerID': document.getElementById('accountManagerId').value,
+                'DateSubmitted': document.getElementById('dtSubmitted').value,
+                'SwapStartDate': document.getElementById('dtStart').value,
+                'SwapEndDate': document.getElementById('dtEnd').value,
+                'PaymentTerms': document.getElementById('paymentTerms').value,
+                'CurrencyID': document.getElementById('currencyId').value,
+                'SwapName': document.getElementById('swapName').value,
+                'ExchangeRate': document.getElementById('exchangeRate').value,
+                'OriginalDealMargin': document.getElementById('originalDealMargin').value,
+                'DealLenght': document.getElementById('dealLength').value,
+                'TotalCurrentMargin': document.getElementById('totalCurrentMargin').value,
+                'MarginVariance': document.getElementById('marginVariance').value,
+                'TotalDealRevenue': document.getElementById('totalDealRevenue').value,
+                'MarginPercentage': hMargin, // document.getElementById('margin').value,
+                'corporateID': document.getElementById('carrierId').value,
+                'RevisionNumber':revisionNumber
+
+            }
+        };
+
+        // TRUNKS
+        xdata['swap']['trunks'] =  []; // {}
+        var opt;
+        var nTrunk = 0;
+        var sel = document.getElementById('trunks[]');
+        for ( var i = 0, len = sel.options.length; i < len; i++ ) {
+            opt = sel.options[i];
+            if ( opt.selected === true ) {
+                // xdata['swap']['trunks'][nTrunk++] = {'carrierId' : opt.value };
+                xdata['swap']['trunks'].push({'carrierId' : opt.value });
+            }
+
+        }
+
+        // INBOUND / OUTBOUND
+        xdata['swap']['Destinations'] =  []; // {};
+
+        xar1 = getArrayFromDetailTables('tINBOUND', '1');
+        xar2 = getArrayFromDetailTables('tOUTBOUND', '2');
+
+        // var nDestiny = 0;
+        // for(i = 0; i < xar1.length; i++) xdata['swap']['Destinations'][nDestiny++] = xar1[i];
+        // for(i = 0; i < xar2.length; i++) xdata['swap']['Destinations'][nDestiny++] = xar2[i];
+        for(i = 0; i < xar1.length; i++) xdata['swap']['Destinations'].push(xar1[i]);
+        for(i = 0; i < xar2.length; i++) xdata['swap']['Destinations'].push(xar2[i]);
+
+        var json = JSON.stringify(xdata);
+        // document.getElementById("demo2").innerHTML = json;
+
+        return json;
+
+        /*
+        Array
+    (
+        [swap] => Array
+            (
+                [SwapTypeID] => 4
+                [AccountManagerID] => 11
+                [DateSubmitted] => 2019-09-13 15:20:21
+                [SwapStartDate] => 2019-09-13
+                [SwapEndDate] => 2019-10-31
+                [PaymentTerms] => 30
+                [CurrencyID] => 1
+                [SwapName] => 3MTEL
+                [ExchangeRate] => 1
+                [OriginalDealMargin] => 0
+                [DealLenght] => 48
+                [TotalCurrentMargin] => 0
+                [MarginVariance] => 0
+                [TotalDealRevenue] => 0
+                [MarginPercentage] => 0
+                [corporateID] => 15
+                [trunks] => Array
+                    (
+                        [carrierId] => 1000016
+                    )
+
+                [Destinations] => Array
+                    (
+                        [0] => Array
+                            (
+                                [DestinationParent] => USA (All-48 States)
+                                [DestKeyId] => 451
+                                [DirectionId] => 1
+                                [Rate] => 0.012
+                                [DealMinutes] => 100000
+                                [Revenue] => 1200
+                                [DailyMinExpected] => 2083
+                                [CostPerMinute] => 0.011
+                                [Margin] => 1100
+                                [MarginPerMinute] => 1
+                                [StartDate] => 2019-09-13
+                                [EndDate] => 2019-10-31
+                            )
+
+                    )
+
+            )
+
+    )
+         */
+    }
