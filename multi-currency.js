@@ -1,44 +1,45 @@
 $(document).ready(function() {
-  $("#btnAddCol").click(function() {
-    var totalRows = countRows();
+  $("#btnAddCol").one('click', function() {
     var bodyRows = $("[id^='ibtr_']");
-    var headRow = $("#tINBOUND > thead > tr > th").eq(4); // NOTE: There are 2 hidden columns (th) elements
-    var headRowNewContent = $("<th><div style='width:100px!important; height:auto;'>Sell Rate EUR</div></th>"); // Create new head element to append
-    var $footerRow = $('#tINBOUND > tfoot > tr > td:first-child'); // Getting the first TD element from footer
+    var mainHeadRow = $("#tINBOUND > thead > tr > th"); // NOTE: There are 2 hidden columns (th) elements
+    var sellRateHeadRow = mainHeadRow.eq(4); // Getting the sell rate column TH element
+    var revenueHeadRow = mainHeadRow.eq(6); // Getting the revenue column TH element
+    var sellRateRowNewContent = $("<th><div style='width:100px!important; height:auto;'>Sell Rate EUR</div></th>"); // Create sell rate EUR head element to append
+    var revenueRowNewContent = $("<th><div style='width:100px!important; height:auto;'>Revenue EUR</div></th>"); // Create revenue EUR element to append
+    var footerRow = $('#tINBOUND > tfoot > tr > td:first-child'); // Getting the first TD element from footer
+    var footerRowToEurRevenue = $('#tINBOUND > tfoot > tr > td').eq(2); // Getting the first TD element from footer
+    var revenueTotal = 0;
 
-    headRow.after(headRowNewContent); // Adding a new <TH> element next to its left sibling
+    sellRateHeadRow.after(sellRateRowNewContent); // Adding a new sell rate EUR <TH> element next to its left sibling
+    revenueHeadRow.after(revenueRowNewContent); // Adding a new revenue EUR <TH> element next to its left sibling
 
     $.each(bodyRows, function(index, value){
-      var $currentTdObject = $(value).find('td').eq(4);
-      var currentAmout = $currentTdObject.text();
-      var $eurValueToAdd = $("<td/>", {
-        text: "EUR " + convertValueToEUR(currentAmout).toFixed(5),
+      var currentSellRateTdObject = $(value).find('td').eq(4);
+      var currentSellRateAmout = currentSellRateTdObject.text();
+      var eurSellRateValueToAdd = $("<td/>", {
+        text: "EUR " + convertValueToEUR(currentSellRateAmout).toFixed(5),
       });
 
-      $currentTdObject.after($eurValueToAdd);
+      currentSellRateTdObject.after(eurSellRateValueToAdd);
+
+      var currentRevenueTdObject = $(value).find('td').eq(7);
+      var currentRevenueAmout = currentRevenueTdObject.text();
+      var finalRevenueConverted = convertValueToEUR(currentRevenueAmout);
+      var eurRevenueValueToAdd = $("<td/>", {
+        text: "EUR " + finalRevenueConverted,
+      });
+      revenueTotal = revenueTotal + finalRevenueConverted;
+
+      currentRevenueTdObject.after(eurRevenueValueToAdd);
     });
 
-    $footerRow.attr('colspan', '4'); // Updating footer span to include new EUR column
-    
-    // for (index = 0; index < bodyRows.length; index++) {
-    //   var cell = bodyRows[index].insertCell(5);
-    //   var newValue = bodyRows.find("td:eq(4)").html(); // debe tomar el valor de la celda al lado izq.!
-    //   cell.innerHTML = "EUR " + convertValueToEUR(newValue).toFixed(5);
-    // }
-
-    // Insert column -> "Revenue"
-    // var cellHead = headRow[0].insertCell(7);
-    // cellHead.innerHTML = "Revenue EUR";
-    // for (index = 0; index < bodyRows.length; index++) {
-    //   var cell = bodyRows[index].insertCell(7);
-    //   var newValue = bodyRows.find("td:eq(6)").html();
-    //   cell.innerHTML = "EUR " + convertValueToEUR(newValue);
-    // }
+    footerRow.attr('colspan', '4'); // Updating footer span to include new EUR column
+    footerRowToEurRevenue.after('<td> EUR '+ revenueTotal +'</td>'); // Adding footer revenue EUR total
   });
 
   function convertValueToEUR(newValue) {
     EUR = newValue.replace("USD ", "");
-    return EUR * 0.91;
+    return parseFloat(EUR) * 0.91;
   }
 
   function countRows() {
