@@ -73,7 +73,7 @@ $(document).ready(function() {
       var currentMarginPerMinuteAmount = currentMarginPerMinuteTdObject.text();
       var eurMarginPerMinuteValueToAdd = $("<td/>", {
         text:
-          "EUR " + convertValueToEUR(currentMarginPerMinuteAmount).toFixed(2)
+          "EUR " + (Math.floor(convertValueToEUR(currentMarginPerMinuteAmount) * 100) / 100).toFixed(2)
       });
       currentMarginPerMinuteTdObject.after(eurMarginPerMinuteValueToAdd);
     });
